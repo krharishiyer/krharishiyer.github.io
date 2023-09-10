@@ -7,7 +7,7 @@
             background-color: #323232;
         }
         .highlight{
-            background-color: goldenrod;
+            background-color: #ADEFD1FF;
             height: 50px;
             width: 100px;
             text-align: center;
@@ -15,7 +15,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: small;
             border-radius: 10px;
-            
+            margin-bottom: 10px;
         }
         .defaultcolor{
             background-color: white;
@@ -26,12 +26,16 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: small;
             border-radius: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div id="Dishwasher">
         <p>Dishwasher</p>
+    </div>
+    <div id="WashingMachine">
+        <p>Wash. Machine</p>
     </div>
     <script>
         //Refresh page    
@@ -48,7 +52,7 @@
         //Get current date
         const currentDate = new Date();
 
-        //Check if the current date is the 10th day of the month
+        //Check if the current date is the 11th day of the month
         if(currentDate.getDate()===11){
             //Apply the style to the element
             const element = document.getElementById('Dishwasher');
@@ -56,6 +60,15 @@
         }
         else{
             const element = document.getElementById('Dishwasher');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===12){
+            //Apply the style to the element
+            const element = document.getElementById('WashingMachine');
+            element.classList.add('highlight');
+        }
+        else{
+            const element = document.getElementById('WashingMachine');
             element.classList.add('defaultcolor');
         }
     </script>
