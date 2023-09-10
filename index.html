@@ -31,25 +31,9 @@
         }
        
 
-        //Calculate the time remaining until 12:01 AM
-        function getTimeUntil1201AM()
-        {
-            const now = new Date();
-            const next1201AM = new Date();
-
-            next1201AM.setHours(0,1,0,0);
-
-            // If it's already past 12:01 AM today, set it for tomorrow
-            if (now > next1201AM) {
-                next1201AM.setDate(next1201AM.getDate() + 1);
-            }
-
-            const timeUntil1201AM = next1201AM - now;
-            return timeUntil1201AM;
-        }
-
-        // Set a timer to refresh the page at 12:01 AM
-        setTimeout(refreshPage, getTimeUntil1201AM());
+       // Set a timer to refresh the page every 15 minutes (in milliseconds)
+       const interval = 1 * 60 * 1000; // 15 minutes in milliseconds
+        setInterval(refreshPage, interval);
         
         //Get current date
         const currentDate = new Date();
