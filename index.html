@@ -17,6 +17,16 @@
             border-radius: 10px;
             
         }
+        .defaultcolor{
+            background-color: lightgrey;
+            height: 50px;
+            width: 100px;
+            text-align: center;
+            padding-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: small;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -39,10 +49,14 @@
         const currentDate = new Date();
 
         //Check if the current date is the 10th day of the month
-        if(currentDate.getDate()===10){
+        if(currentDate.getDate()===11){
             //Apply the style to the element
             const element = document.getElementById('Dishwasher');
             element.classList.add('highlight');
+        }
+        else{
+            const element = document.getElementById('Dishwasher');
+            element.classList.add('defaultcolor');
         }
     </script>
 </body>
