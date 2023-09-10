@@ -53,7 +53,7 @@
         const currentDate = new Date();
 
         //Check if the current date is the 11th day of the month
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===10){
             //Apply the style to the element
             const element = document.getElementById('Dishwasher');
             element.classList.add('highlight');
@@ -62,7 +62,8 @@
             const element = document.getElementById('Dishwasher');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===12){
+        //Check if the current date is the 12th day of the month
+        if(currentDate.getDate()===10){
             //Apply the style to the element
             const element = document.getElementById('WashingMachine');
             element.classList.add('highlight');
