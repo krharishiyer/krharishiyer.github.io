@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <style>
+        body{
+            background-color: #323232;
+        }
+        .highlight{
+            background-color: aqua;
+            height: 50px;
+            width: 100px;
+            text-align: center;
+            padding-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: small;
+            border-radius: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="Dishwasher">
+        <p>Dishwasher</p>
+    </div>
+    <script>
+        //Refresh page    
+        function refreshPage(){
+            location.reload();
+            
+        }
+       
+
+        //Calculate the time remaining until 12:01 AM
+        function getTimeUntil1201AM()
+        {
+            const now = new Date();
+            const next1201AM = new Date();
+
+            next1201AM.setHours(15,52,0,0);
+
+            // If it's already past 12:01 AM today, set it for tomorrow
+            if (now > next1201AM) {
+                next1201AM.setDate(next1201AM.getDate() + 1);
+            }
+
+            const timeUntil1201AM = next1201AM - now;
+            return timeUntil1201AM;
+        }
+
+        // Set a timer to refresh the page at 12:01 AM
+        setTimeout(refreshPage, getTimeUntil1201AM());
+        
+        //Get current date
+        const currentDate = new Date();
+
+        //Check if the current date is the 10th day of the month
+        if(currentDate.getDate()===10){
+            //Apply the style to the element
+            const element = document.getElementById('Dishwasher');
+            element.classList.add('highlight');
+        }
+    </script>
+</body>
+</html>
