@@ -54,6 +54,9 @@
         <div id="Drainex">
             <p>Drainex</p>
         </div>
+        <div id="ELighter">
+            <p>E Lighter</p>
+        </div>
         <div id="Fountain">
             <p>Fountain</p>
         </div>
@@ -267,6 +270,15 @@
         }
         else{
             const element = document.getElementById('M30S');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===13){
+            //Apply the style to the element
+            const element = document.getElementById('ELighter');
+            element.classList.add('highlight');
+        }
+        else{
+            const element = document.getElementById('ELighter');
             element.classList.add('defaultcolor');
         }
 
