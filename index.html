@@ -21,6 +21,7 @@
             justify-content: center;
             align-items: center;
             align-content: center;
+            height: fit-content;
             
         }
         .highlight{
@@ -51,6 +52,20 @@
             border-radius: .625rem;
             margin: .625rem;
         }
+        .complete{
+            display: flex;
+            background-color: rgb(2, 146, 86);
+            height: 6rem;
+            width: 9rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* padding-top: 0.313rem; */
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.5rem;
+            border-radius: .625rem;
+            margin: .625rem;
+        }
         @media (max-width: 1280px){
             .highlight{
             height: 9rem;
@@ -62,66 +77,70 @@
             width: 12rem;
             font-size: 2rem;
             }
+            
         }
     </style>
 </head>
 <body>
     <div class="flex-container">
-        <div id="AgarbatiStand">
+        <div id="AgarbatiStand" onclick="done(this)">
             <p>Agarbati Stand</p>
         </div>
-        <div id="Airdopes">
+        <div id="Airdopes" onclick="done(this)">
             <p>Airdopes</p>
         </div>
-        <div id="AirFreshner">
+        <div id="AirFreshner" onclick="done(this)">
             <p>Air Freshner</p>
         </div>
-        <div id="Bose">
+        <div id="Bose" onclick="done(this)">
             <p>Bose</p>
         </div>
-        <div id="Dishwasher">
+        <div id="Dishwasher" onclick="done(this)">
             <p>Dishwasher</p>
         </div>
-        <div id="Drainex">
+        <div id="Drainex" onclick="done(this)">
             <p>Drainex</p>
         </div>
-        <div id="ELighter">
+        <div id="ELighter" onclick="done(this)">
             <p>E Lighter</p>
         </div>
-        <div id="Fountain">
+        <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
         </div>
-        <div id="KTowels">
+        <div id="KTowels" onclick="done(this)">
             <p>K Towels</p>
         </div>
-        <div id="LiquidSoap">
+        <div id="LiquidSoap" onclick="done(this)">
             <p>Liquid Soap</p>
         </div>
-        <div id="M30S">
+        <div id="M30S" onclick="done(this)">
             <p>M30S</p>
         </div>
-        <div id="Microwave">
+        <div id="Microwave" onclick="done(this)">
             <p>Microwave</p>
         </div>
-        <div id="Oven">
+        <div id="Oven" onclick="done(this)">
             <p>Oven</p>
         </div>
-        <div id="Plants">
+        <div id="Plants" onclick="done(this)">
             <p>Plants</p>
         </div>
-        <div id="Pril">
+        <div id="Pril" onclick="done(this)">
             <p>Pril</p>
         </div>
-        <div id="STab">
+        <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
         </div>
-        <div id="Toasters">
+        <div id="Thyronorm" onclick="done(this)">
+            <p>Thyronorm</p>
+        </div>
+        <div id="Toasters" onclick="done(this)">
             <p>Toasters</p>
         </div>
-        <div id="WashingMachine">
+        <div id="WashingMachine" onclick="done(this)">
             <p>Wash. Machine</p>
         </div>
-        <div id="WaterFilter">
+        <div id="WaterFilter" onclick="done(this)">
             <p>Water Filter</p>
         </div>
     </div>
@@ -132,15 +151,41 @@
         }
        
 
-       // Set a timer to refresh the page every 15 minutes (in milliseconds)
-       const interval = 1 * 60 * 1000; // 15 minutes in milliseconds
-        setInterval(refreshPage, interval);
+    //    // Set a timer to refresh the page every 15 minutes (in milliseconds)
+    //    const interval = 1 * 60 * 1000; // 15 minutes in milliseconds
+    //     setInterval(refreshPage, interval);
+
+    //Calculate the time remaining until 12:01 AM
+    function getTimeUntil1201AM()
+        {
+            const now = new Date();
+            const next1201AM = new Date();
+
+            next1201AM.setHours(0,1,0,0);
+
+            // If it's already past 12:01 AM today, set it for tomorrow
+            if (now > next1201AM) {
+                next1201AM.setDate(next1201AM.getDate() + 1);
+            }
+
+            const timeUntil1201AM = next1201AM - now;
+            return timeUntil1201AM;
+        }
+        
+        // Change color to Green on click
+        function done(element)
+        {
+            element.classList.toggle('complete');
+        }
+
+        // Set a timer to refresh the page at 12:01 AM
+        setTimeout(refreshPage, getTimeUntil1201AM());
         
         //Get current date
         const currentDate = new Date();
 
         //Check if the current date is the 11th day of the month
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Dishwasher');
             element.classList.add('highlight');
@@ -149,7 +194,7 @@
             var element = document.getElementById('Dishwasher');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Drainex');
             element.classList.add('highlight');
@@ -158,7 +203,7 @@
             var element = document.getElementById('Drainex');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('WaterFilter');
             element.classList.add('highlight');
@@ -167,7 +212,7 @@
             var element = document.getElementById('WaterFilter');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Pril');
             element.classList.add('highlight');
@@ -176,7 +221,7 @@
             var element = document.getElementById('Pril');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Plants');
             element.classList.add('highlight');
@@ -185,7 +230,7 @@
             var element = document.getElementById('Plants');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Oven');
             element.classList.add('highlight');
@@ -193,7 +238,7 @@
         else{
             var element = document.getElementById('Oven');
             element.classList.add('defaultcolor');
-        }if(currentDate.getDate()===11){
+        }if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Microwave');
             element.classList.add('highlight');
@@ -202,7 +247,7 @@
             var element = document.getElementById('Microwave');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===11){
+        if(currentDate.getDate()===11|| currentDate.getDate()===26){
             //Apply the style to the element
             var element = document.getElementById('Toasters');
             element.classList.add('highlight');
@@ -212,7 +257,7 @@
             element.classList.add('defaultcolor');
         }
         //Check if the current date is the 12th day of the month
-        if(currentDate.getDate()===12){
+        if(currentDate.getDate()===12 || currentDate.getDate()===27){
             //Apply the style to the element
             var element = document.getElementById('WashingMachine');
             element.classList.add('highlight');
@@ -221,7 +266,7 @@
             var element = document.getElementById('WashingMachine');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===12){
+        if(currentDate.getDate()===12 || currentDate.getDate()===27){
             //Apply the style to the element
             var element = document.getElementById('AirFreshner');
             element.classList.add('highlight');
@@ -230,7 +275,7 @@
             var element = document.getElementById('AirFreshner');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===12){
+        if(currentDate.getDate()===12 || currentDate.getDate()===27){
             //Apply the style to the element
             var element = document.getElementById('LiquidSoap');
             element.classList.add('highlight');
@@ -239,7 +284,7 @@
             var element = document.getElementById('LiquidSoap');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===12){
+        if(currentDate.getDate()===12 || currentDate.getDate()===27){
             //Apply the style to the element
             var element = document.getElementById('Airdopes');
             element.classList.add('highlight');
@@ -248,7 +293,7 @@
             var element = document.getElementById('Airdopes');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===12){
+        if(currentDate.getDate()===12 || currentDate.getDate()===27){
             //Apply the style to the element
             var element = document.getElementById('AgarbatiStand');
             element.classList.add('highlight');
@@ -258,7 +303,7 @@
             element.classList.add('defaultcolor');
         }
         //Check if the current date is the 13th day of the month
-        if(currentDate.getDate()===13){
+        if(currentDate.getDate()===13 || currentDate.getDate()===16){
             //Apply the style to the element
             var element = document.getElementById('KTowels');
             element.classList.add('highlight');
@@ -267,7 +312,7 @@
             var element = document.getElementById('KTowels');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13){
+        if(currentDate.getDate()===13 || currentDate.getDate()===16){
             //Apply the style to the element
             var element = document.getElementById('STab');
             element.classList.add('highlight');
@@ -276,7 +321,7 @@
             var element = document.getElementById('STab');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13){
+        if(currentDate.getDate()===13 || currentDate.getDate()===16){
             //Apply the style to the element
             var element = document.getElementById('Bose');
             element.classList.add('highlight');
@@ -285,7 +330,7 @@
             var element = document.getElementById('Bose');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13){
+        if(currentDate.getDate()===13 || currentDate.getDate()===16){
             //Apply the style to the element
             var element = document.getElementById('Fountain');
             element.classList.add('highlight');
@@ -294,7 +339,7 @@
             var element = document.getElementById('Fountain');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13){
+        if(currentDate.getDate()===13 || currentDate.getDate()===16){
             //Apply the style to the element
             var element = document.getElementById('M30S');
             element.classList.add('highlight');
@@ -303,13 +348,23 @@
             var element = document.getElementById('M30S');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13){
+        if(currentDate.getDate()===13 || currentDate.getDate()===16){
             //Apply the style to the element
             var element = document.getElementById('ELighter');
             element.classList.add('highlight');
         }
         else{
             var element = document.getElementById('ELighter');
+            element.classList.add('defaultcolor');
+        }
+        //Check if the current date is the 14th day of the month
+        if(currentDate.getDate()===14){
+            //Apply the style to the element
+            var element = document.getElementById('Thyronorm');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Thyronorm');
             element.classList.add('defaultcolor');
         }
 
