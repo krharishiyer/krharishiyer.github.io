@@ -39,7 +39,7 @@
             margin: .625rem;
         }
         .defaultcolor{
-            display: flex;
+            display: none;
             background-color: white;
             height: 6rem;
             width: 9rem;
@@ -107,8 +107,11 @@
         <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
         </div>
+        <div id="KeepMilkBasket" onclick="done(this)" class="highlight">
+            <p>Keep Milk Basket</p>
+        </div>
         <div id="KTowels" onclick="done(this)">
-            <p>K Towels</p>
+            <p>Kitchen Towels</p>
         </div>
         <div id="LiquidSoap" onclick="done(this)">
             <p>Liquid Soap</p>
@@ -119,8 +122,14 @@
         <div id="Microwave" onclick="done(this)">
             <p>Microwave</p>
         </div>
+        <div id="BringMilkBasket" onclick="done(this)" class="highlight">
+            <p>Bring Milk Basket</p>
+        </div>
         <div id="Oven" onclick="done(this)">
             <p>Oven</p>
+        </div>
+        <div id="PBags" onclick="done(this)">
+            <p>Paper Bags</p>
         </div>
         <div id="Plants" onclick="done(this)">
             <p>Plants</p>
@@ -131,7 +140,10 @@
         <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
         </div>
-        <div id="Thyronorm" onclick="done(this)">
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Thyronorm" onclick="done(this)" class="highlight">
             <p>Thyronorm</p>
         </div>
         <div id="Toasters" onclick="done(this)">
@@ -175,7 +187,9 @@
         // Change color to Green on click
         function done(element)
         {
+            if (element.classList != 'defaultcolor'){
             element.classList.toggle('complete');
+            }
         }
 
         // Set a timer to refresh the page at 12:01 AM
@@ -189,6 +203,7 @@
             //Apply the style to the element
             var element = document.getElementById('Dishwasher');
             element.classList.add('highlight');
+            
         }
         else{
             var element = document.getElementById('Dishwasher');
@@ -357,14 +372,14 @@
             var element = document.getElementById('ELighter');
             element.classList.add('defaultcolor');
         }
-        //Check if the current date is the 14th day of the month
-        if(currentDate.getDate()===14){
+        //Check if the current date is the 13th day of the month
+        if(currentDate.getDate()===14 || currentDate.getDate()===29){
             //Apply the style to the element
-            var element = document.getElementById('Thyronorm');
+            var element = document.getElementById('PBags');
             element.classList.add('highlight');
         }
         else{
-            var element = document.getElementById('Thyronorm');
+            var element = document.getElementById('Paper Bags');
             element.classList.add('defaultcolor');
         }
 
