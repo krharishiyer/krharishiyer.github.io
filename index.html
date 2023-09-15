@@ -32,7 +32,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* padding-top: 0.313rem; */
+            padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.5rem;
             border-radius: .625rem;
@@ -46,7 +46,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* padding-top: 0.313rem; */
+            padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.5rem;
             border-radius: .625rem;
@@ -60,7 +60,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* padding-top: 0.313rem; */
+            padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.5rem;
             border-radius: .625rem;
@@ -83,6 +83,9 @@
 </head>
 <body>
     <div class="flex-container">
+        <div id="AfternoonWashDishes" onclick="done(this)" class="highlight">
+            <p>Afternoon Dish Wash</p>
+        </div>
         <div id="AgarbatiStand" onclick="done(this)">
             <p>Agarbati Stand</p>
         </div>
@@ -92,8 +95,17 @@
         <div id="AirFreshner" onclick="done(this)">
             <p>Air Freshner</p>
         </div>
+        <div id="BringMilkBasket" onclick="done(this)" class="highlight">
+            <p>Bring Milk Basket</p>
+        </div>
         <div id="Bose" onclick="done(this)">
             <p>Bose</p>
+        </div>
+        <div id="CarCleaning" onclick="done(this)">
+            <p>Car Cleaning</p>
+        </div>
+        <div id="Crio" onclick="done(this)">
+            <p>Crio</p>
         </div>
         <div id="Dishwasher" onclick="done(this)">
             <p>Dishwasher</p>
@@ -101,8 +113,20 @@
         <div id="Drainex" onclick="done(this)">
             <p>Drainex</p>
         </div>
+        <div id="Dusting" onclick="done(this)">
+            <p>Dusting</p>
+        </div>
+        <div id="Ears" onclick="done(this)">
+            <p>Ears</p>
+        </div>
+        <div id="EveningDeepam" onclick="done(this)" class="highlight">
+            <p>Evening Deepam</p>
+        </div>
         <div id="ELighter" onclick="done(this)">
             <p>E Lighter</p>
+        </div>
+        <div id="EveningWashDishes" onclick="done(this)" class="highlight">
+            <p>Evening Dish Wash</p>
         </div>
         <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
@@ -113,6 +137,9 @@
         <div id="KTowels" onclick="done(this)">
             <p>Kitchen Towels</p>
         </div>
+        <div id="WashClothes" onclick="done(this)" class="highlight">
+            <p>Wash Clothes</p>
+        </div>
         <div id="LiquidSoap" onclick="done(this)">
             <p>Liquid Soap</p>
         </div>
@@ -122,14 +149,32 @@
         <div id="Microwave" onclick="done(this)">
             <p>Microwave</p>
         </div>
-        <div id="BringMilkBasket" onclick="done(this)" class="highlight">
-            <p>Bring Milk Basket</p>
+        <div id="MorningDeepam" onclick="done(this)" class="highlight">
+            <p>Morning Deepam</p>
+        </div>
+        <div id="MorningWashDishes" onclick="done(this)" class="highlight">
+            <p>Morning Dish Wash</p>
+        </div>
+        <div id="Nails" onclick="done(this)">
+            <p>Nails</p>
+        </div>
+        <div id="Nose" onclick="done(this)">
+            <p>Nose</p>
+        </div>
+        <div id="Office" onclick="done(this)">
+            <p>Office</p>
+        </div>
+        <div id="OfficePrep" onclick="done(this)">
+            <p>Office Prep</p>
         </div>
         <div id="Oven" onclick="done(this)">
             <p>Oven</p>
         </div>
         <div id="PBags" onclick="done(this)">
             <p>Paper Bags</p>
+        </div>
+        <div id="PCT" onclick="done(this)">
+            <p>PCT</p>
         </div>
         <div id="Plants" onclick="done(this)">
             <p>Plants</p>
@@ -139,6 +184,9 @@
         </div>
         <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
+        </div>
+        <div id="Temple" onclick="done(this)">
+            <p>Temple</p>
         </div>
         <div id="Trash" onclick="done(this)" class="highlight">
             <p>Trash</p>
@@ -380,6 +428,114 @@
         }
         else{
             var element = document.getElementById('PBags');
+            element.classList.add('defaultcolor');
+        }
+        //Check if the current day is Sunday
+        if(currentDate.getDay()===0){
+            //Apply the style to the element
+            var element = document.getElementById('OfficePrep');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('OfficePrep');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===0){
+            //Apply the style to the element
+            var element = document.getElementById('CarCleaning');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('CarCleaning');
+            element.classList.add('defaultcolor');
+        }
+        //Check if the current day is Monday
+        if(currentDate.getDay()===1){
+            //Apply the style to the element
+            var element = document.getElementById('PCT');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('PCT');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===1 || currentDate.getDay()===3){
+            //Apply the style to the element
+            var element = document.getElementById('Office');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Office');
+            element.classList.add('defaultcolor');
+        }
+       
+        
+        //Check if the current day is Tuesday
+        if(currentDate.getDay()===2 || currentDate.getDay()===0){
+            //Apply the style to the element
+            var element = document.getElementById('OfficePrep');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('OfficePrep');
+            element.classList.add('defaultcolor');
+        }
+        //Check if the current day is Wednesday
+        
+        if(currentDate.getDay()===1 || currentDate.getDay()===3 || currentDate.getDay()===5){
+            //Apply the style to the element
+            var element = document.getElementById('Crio');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Crio');
+            element.classList.add('defaultcolor');
+        }
+        
+        //Check if the current day is Saturday
+        if(currentDate.getDay()===6){
+            //Apply the style to the element
+            var element = document.getElementById('Nails');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Nails');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===6){
+            //Apply the style to the element
+            var element = document.getElementById('Ears');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Ears');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===6){
+            //Apply the style to the element
+            var element = document.getElementById('Nose');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Nose');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===6){
+            //Apply the style to the element
+            var element = document.getElementById('Dusting');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Dusting');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===6){
+            //Apply the style to the element
+            var element = document.getElementById('Temple');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Temple');
             element.classList.add('defaultcolor');
         }
 
