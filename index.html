@@ -110,6 +110,9 @@
         <div id="Dishwasher" onclick="done(this)">
             <p>Dishwasher</p>
         </div>
+        <div id="Dosa" onclick="done(this)">
+            <p>Breakfast<br><i>Dosa</i></p>
+        </div>
         <div id="Drainex" onclick="done(this)">
             <p>Drainex</p>
         </div>
@@ -130,6 +133,12 @@
         </div>
         <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
+        </div>
+        <div id="Idli" onclick="done(this)">
+            <p>Breakfast<br><i>Idli</i></p>
+        </div>
+        <div id="IdliUpma" onclick="done(this)">
+            <p>Breakfast<br><i>Idli Upma</i></p>
         </div>
         <div id="KeepMilkBasket" onclick="done(this)" class="highlight">
             <p>Keep Milk Basket</p>
@@ -179,8 +188,17 @@
         <div id="Plants" onclick="done(this)">
             <p>Plants</p>
         </div>
+        <div id="Poha" onclick="done(this)">
+            <p>Breakfast<br><i>Poha</i></p>
+        </div>
         <div id="Pril" onclick="done(this)">
             <p>Pril</p>
+        </div>
+        <div id="Sabudana" onclick="done(this)">
+            <p>Breakfast<br><i>Sabudana</i></p>
+        </div>
+        <div id="Sewai" onclick="done(this)">
+            <p>Breakfast<br><i>Sewai</i></p>
         </div>
         <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
@@ -196,6 +214,9 @@
         </div>
         <div id="Toasters" onclick="done(this)">
             <p>Toasters</p>
+        </div>
+        <div id="Upma" onclick="done(this)">
+            <p>Breakfast<br><i>Upma</i></p>
         </div>
         <div id="WashingMachine" onclick="done(this)">
             <p>Wash. Machine</p>
@@ -449,7 +470,7 @@
             var element = document.getElementById('CarCleaning');
             element.classList.add('defaultcolor');
         }
-        //Check if the current day is Monday
+        //Check if the current day is Monday or Wednesday
         if(currentDate.getDay()===1){
             //Apply the style to the element
             var element = document.getElementById('PCT');
@@ -470,7 +491,7 @@
         }
        
         
-        //Check if the current day is Tuesday
+        //Check if the current day is Sunday or Tuesday
         if(currentDate.getDay()===2 || currentDate.getDay()===0){
             //Apply the style to the element
             var element = document.getElementById('OfficePrep');
@@ -480,7 +501,7 @@
             var element = document.getElementById('OfficePrep');
             element.classList.add('defaultcolor');
         }
-        //Check if the current day is Wednesday
+        //Check if the current day is Monday or Wednesday
         
         if(currentDate.getDay()===1 || currentDate.getDay()===3 || currentDate.getDay()===5){
             //Apply the style to the element
@@ -536,6 +557,70 @@
         }
         else{
             var element = document.getElementById('Temple');
+            element.classList.add('defaultcolor');
+        }
+        //Breakfast
+        if(currentDate.getDay()===0){
+            //Apply the style to the element
+            var element = document.getElementById('Poha');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Poha');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===1){
+            //Apply the style to the element
+            var element = document.getElementById('Upma');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Upma');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===2){
+            //Apply the style to the element
+            var element = document.getElementById('Sabudana');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Sabudana');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===3){
+            //Apply the style to the element
+            var element = document.getElementById('Sewai');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Sewai');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===4){
+            //Apply the style to the element
+            var element = document.getElementById('Idli');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Idli');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===5){
+            //Apply the style to the element
+            var element = document.getElementById('IdliUpma');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('IdliUpma');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===6){
+            //Apply the style to the element
+            var element = document.getElementById('Dosa');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Dosa');
             element.classList.add('defaultcolor');
         }
 
