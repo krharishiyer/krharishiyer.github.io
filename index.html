@@ -22,6 +22,8 @@
             align-items: center;
             align-content: center;
             height: fit-content;
+            width: fit-content;
+           
             
         }
         .highlight{
@@ -55,6 +57,20 @@
         .complete{
             display: flex;
             background-color: rgb(2, 146, 86);
+            height: 6rem;
+            width: 9rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.5rem;
+            border-radius: .625rem;
+            margin: .625rem;
+        }
+        .informational{
+            display: flex;
+            background-color: orange;
             height: 6rem;
             width: 9rem;
             align-items: center;
@@ -110,7 +126,7 @@
         <div id="Dishwasher" onclick="done(this)">
             <p>Dishwasher</p>
         </div>
-        <div id="Dosa" onclick="done(this)">
+        <div id="Dosa">
             <p>Breakfast<br><i>Dosa</i></p>
         </div>
         <div id="Drainex" onclick="done(this)">
@@ -134,10 +150,10 @@
         <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
         </div>
-        <div id="Idli" onclick="done(this)">
+        <div id="Idli">
             <p>Breakfast<br><i>Idli</i></p>
         </div>
-        <div id="IdliUpma" onclick="done(this)">
+        <div id="IdliUpma">
             <p>Breakfast<br><i>Idli Upma</i></p>
         </div>
         <div id="KeepMilkBasket" onclick="done(this)" class="highlight">
@@ -188,17 +204,29 @@
         <div id="Plants" onclick="done(this)">
             <p>Plants</p>
         </div>
-        <div id="Poha" onclick="done(this)">
+        <div id="Poha">
             <p>Breakfast<br><i>Poha</i></p>
         </div>
         <div id="Pril" onclick="done(this)">
             <p>Pril</p>
         </div>
-        <div id="Sabudana" onclick="done(this)">
+        <div id="Sabudana">
             <p>Breakfast<br><i>Sabudana</i></p>
         </div>
-        <div id="Sewai" onclick="done(this)">
+        <div id="Sewai">
             <p>Breakfast<br><i>Sewai</i></p>
+        </div>
+        <div id="SFQ1">
+            <p>SF Q1</p>
+        </div>
+        <div id="SFQ2">
+            <p>SF Q2</p>
+        </div>
+        <div id="SFQ3">
+            <p>SF Q3</p>
+        </div>
+        <div id="SFQ4">
+            <p>SF Q4</p>
         </div>
         <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
@@ -215,7 +243,7 @@
         <div id="Toasters" onclick="done(this)">
             <p>Toasters</p>
         </div>
-        <div id="Upma" onclick="done(this)">
+        <div id="Upma">
             <p>Breakfast<br><i>Upma</i></p>
         </div>
         <div id="WashingMachine" onclick="done(this)">
@@ -563,7 +591,7 @@
         if(currentDate.getDay()===0){
             //Apply the style to the element
             var element = document.getElementById('Poha');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('Poha');
@@ -572,7 +600,7 @@
         if(currentDate.getDay()===1){
             //Apply the style to the element
             var element = document.getElementById('Upma');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('Upma');
@@ -581,7 +609,7 @@
         if(currentDate.getDay()===2){
             //Apply the style to the element
             var element = document.getElementById('Sabudana');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('Sabudana');
@@ -590,7 +618,7 @@
         if(currentDate.getDay()===3){
             //Apply the style to the element
             var element = document.getElementById('Sewai');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('Sewai');
@@ -599,7 +627,7 @@
         if(currentDate.getDay()===4){
             //Apply the style to the element
             var element = document.getElementById('Idli');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('Idli');
@@ -608,7 +636,7 @@
         if(currentDate.getDay()===5){
             //Apply the style to the element
             var element = document.getElementById('IdliUpma');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('IdliUpma');
@@ -617,10 +645,48 @@
         if(currentDate.getDay()===6){
             //Apply the style to the element
             var element = document.getElementById('Dosa');
-            element.classList.add('highlight');
+            element.classList.add('informational');
         }
         else{
             var element = document.getElementById('Dosa');
+            element.classList.add('defaultcolor');
+        }
+
+        //Informational
+        if(currentDate.getMonth()===1 || currentDate.getMonth()===2 || currentDate.getMonth()===3){
+            //Apply the style to the element
+            var element = document.getElementById('SFQ1');
+            element.classList.add('informational');
+        }
+        else{
+            var element = document.getElementById('SFQ1');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getMonth()===4 || currentDate.getMonth()===5 || currentDate.getMonth()===6){
+            //Apply the style to the element
+            var element = document.getElementById('SFQ2');
+            element.classList.add('informational');
+        }
+        else{
+            var element = document.getElementById('SFQ2');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getMonth()===7 || currentDate.getMonth()===8 || currentDate.getMonth()===9){
+            //Apply the style to the element
+            var element = document.getElementById('SFQ3');
+            element.classList.add('informational');
+        }
+        else{
+            var element = document.getElementById('SFQ3');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getMonth()===10 || currentDate.getMonth()===11 || currentDate.getMonth()===0){
+            //Apply the style to the element
+            var element = document.getElementById('SFQ4');
+            element.classList.add('informational');
+        }
+        else{
+            var element = document.getElementById('SFQ4');
             element.classList.add('defaultcolor');
         }
 
