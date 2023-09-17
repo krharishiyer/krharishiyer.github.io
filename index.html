@@ -16,89 +16,110 @@
         } */
         .flex-container{
             display: flex;
-            flex-direction: row;
+            background-color: aliceblue;
+            /* flex-direction: row; */
             flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-            height: fit-content;
-            width: fit-content;
+            /* justify-content: center;
+            align-items: center; */
+            align-content: stretch;
+            height:800px;
+            /* width: fit-content; */
+            overflow:auto;
+            
            
             
         }
         .highlight{
-            display: flex;
+            /* display: flex; */
             background-color: #E94B3CFF;
-            height: 6rem;
+            /* height: 6rem; */
             width: 9rem;
-            align-items: center;
-            justify-content: center;
+            /* align-items: center;
+            justify-content: center; */
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
         }
         .defaultcolor{
             display: none;
             background-color: white;
-            height: 6rem;
+            /* height: 6rem; */
             width: 9rem;
-            align-items: center;
-            justify-content: center;
+            /* align-items: center;
+            justify-content: center; */
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
         }
         .complete{
-            display: flex;
+            /* display: flex; */
             background-color: rgb(2, 146, 86);
-            height: 6rem;
+            /* height: 6rem; */
             width: 9rem;
-            align-items: center;
-            justify-content: center;
+            /* align-items: center;
+            justify-content: center; */
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
         }
         .informational{
-            display: flex;
+            /* display: flex; */
             background-color: orange;
-            height: 6rem;
+            /* height: 6rem; */
             width: 9rem;
-            align-items: center;
-            justify-content: center;
+            /* align-items: center;
+            justify-content: center; */
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
         }
         @media (max-width: 1280px){
             .highlight{
-            height: 9rem;
-            width: 12rem;
-            font-size: 2rem;
+            /* height: 9rem; */
+            /* width: 12rem; */
+            /* font-size: 2rem; */
             }
             .defaultcolor{
-            height: 9rem;
-            width: 12rem;
-            font-size: 2rem;
+            /* height: 9rem; */
+            /* width: 12rem; */
+            /* font-size: 2rem; */
             }
-            
+            .informational{
+            /* height: 9rem; */
+            /* width: 12rem; */
+            /* font-size: 2rem; */
+            }
+            .flex-container{
+                height: 50rem;
+            }
+        }
+        @media (max-width: 1024px){
+            .flex-container{
+                height: 48rem;
+            }
+        }
+        @media (max-width: 2340px){
+            .flex-container{
+                height: 67.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="flex-container">
+        <div id="Date" class="informational"></div>
         <div id="AfternoonWashDishes" onclick="done(this)" class="highlight">
             <p>Afternoon Dish Wash</p>
         </div>
@@ -252,8 +273,59 @@
         <div id="WaterFilter" onclick="done(this)">
             <p>Water Filter</p>
         </div>
+
+
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        <div id="Trash" onclick="done(this)" class="highlight">
+            <p>Trash</p>
+        </div>
+        
     </div>
     <script>
+       //Display date
+       const showDate = document.getElementById("Date");
+       const currentDate1 = new Date();
+       const formattedDate = currentDate1.toDateString();
+       showDate.textContent = formattedDate;
+
         //Refresh page    
         function refreshPage(){
             location.reload();
