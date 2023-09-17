@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Routine Dashboard</title>
     <style>
         html{
@@ -16,15 +16,16 @@
         } */
         .flex-container{
             display: flex;
+            height: 600px;
             background-color: aliceblue;
             /* flex-direction: row; */
             flex-wrap: wrap;
             /* justify-content: center;
             align-items: center; */
             align-content: stretch;
-            height:600px;
+           
             /* width: fit-content; */
-            overflow:auto;
+            overflow: scroll;
             
            
             
@@ -42,6 +43,7 @@
             /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
+            
         }
         .defaultcolor{
             display: none;
@@ -85,24 +87,11 @@
             border-radius: .625rem;
             margin: .625rem;
         }
-        @media (max-width: 960px){
-            .highlight{
-            /* height: 9rem; */
-            /* width: 12rem; */
-            /* font-size: 2rem; */
-            }
-            .defaultcolor{
-            /* height: 9rem; */
-            /* width: 12rem; */
-            /* font-size: 2rem; */
-            }
-            .informational{
-            /* height: 9rem; */
-            /* width: 12rem; */
-            /* font-size: 2rem; */
-            }
+        @media only screen and (max-width: 960px)
+       {
+            
             .flex-container{
-                height: 37.5rem;
+                height: 800px;
             }
         }
         @media (max-width: 1024px){
@@ -114,7 +103,7 @@
             .flex-container{
                 height: 67.5rem;
             }
-        }
+        } 
     </style>
 </head>
 <body>
