@@ -40,7 +40,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            /* font-size: 1.5rem; */
+            font-size: 1.5rem;
             border-radius: .625rem;
             margin: .625rem;
             
@@ -55,7 +55,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            /* font-size: 1.5rem; */
+            font-size: 1.5rem;
             border-radius: .625rem;
             margin: .625rem;
         }
@@ -69,7 +69,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            /* font-size: 1.5rem; */
+            font-size: 1.5rem;
             border-radius: .625rem;
             margin: .625rem;
         }
@@ -83,7 +83,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            /* font-size: 1.5rem; */
+            font-size: 1.5rem;
             border-radius: .625rem;
             margin: .625rem;
         }
@@ -441,7 +441,12 @@
             element.classList.add('defaultcolor');
         }
         //Check if the current date is the 13th day of the month
-        if(currentDate.getDate()===13 || currentDate.getDate()===16){
+        const todayDate = currentDate.getDate();
+        console.log(todayDate);
+        const remainder = todayDate % 3;
+        console.log(remainder);
+        // if(currentDate.getDate()===13 || currentDate.getDate()===16){
+            if(remainder === 0){
             //Apply the style to the element
             var element = document.getElementById('KTowels');
             element.classList.add('highlight');
@@ -450,7 +455,7 @@
             var element = document.getElementById('KTowels');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13 || currentDate.getDate()===16){
+        if(remainder === 0){
             //Apply the style to the element
             var element = document.getElementById('STab');
             element.classList.add('highlight');
@@ -459,7 +464,7 @@
             var element = document.getElementById('STab');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13 || currentDate.getDate()===16){
+        if(remainder === 0){
             //Apply the style to the element
             var element = document.getElementById('Bose');
             element.classList.add('highlight');
@@ -468,7 +473,7 @@
             var element = document.getElementById('Bose');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13 || currentDate.getDate()===16){
+        if(remainder === 0){
             //Apply the style to the element
             var element = document.getElementById('Fountain');
             element.classList.add('highlight');
@@ -477,7 +482,7 @@
             var element = document.getElementById('Fountain');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13 || currentDate.getDate()===16){
+        if(remainder === 0){
             //Apply the style to the element
             var element = document.getElementById('M30S');
             element.classList.add('highlight');
@@ -486,7 +491,7 @@
             var element = document.getElementById('M30S');
             element.classList.add('defaultcolor');
         }
-        if(currentDate.getDate()===13 || currentDate.getDate()===16){
+        if(remainder === 0){
             //Apply the style to the element
             var element = document.getElementById('ELighter');
             element.classList.add('highlight');
