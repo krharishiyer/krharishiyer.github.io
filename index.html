@@ -163,6 +163,9 @@
         <div id="EveningWashDishes" onclick="done(this)" class="highlight">
             <p>Evening Dish Wash</p>
         </div>
+        <div id="FF" class="informational">
+            <p></p>
+        </div>
         <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
         </div>
@@ -211,6 +214,9 @@
         <div id="Oven" onclick="done(this)">
             <p>Oven</p>
         </div>
+        <div id="Plan" class="informational">
+            <p></p>
+        </div>
         <div id="PBags" onclick="done(this)">
             <p>Paper Bags</p>
         </div>
@@ -226,11 +232,17 @@
         <div id="Pril" onclick="done(this)">
             <p>Pril</p>
         </div>
+        <div id="RF" class="informational">
+            <p></p>
+        </div>
         <div id="Sabudana">
             <p>Breakfast<br><i>Sabudana</i></p>
         </div>
         <div id="Sewai">
             <p>Breakfast<br><i>Sewai</i></p>
+        </div>
+        <div id="ScF" class="informational">
+            <p></p>
         </div>
         <div id="SFQ1">
             <p>SF Q1</p>
@@ -274,6 +286,103 @@
         
     </div>
     <script>
+    //Calculate remaining days
+       function getNumberOfDaysBetween(startDate, endDate) {
+  // Calculate the time difference in milliseconds
+  const timeDifference = endDate.getTime() - startDate.getTime();
+
+  // Convert the time difference to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
+  const daysDifference = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
+
+  return daysDifference;
+}
+
+// Calculate remaining days to ScF:
+const startDate = new Date;
+const endDateScF = new Date('2023-11-02');
+
+const numberOfDaysScF = getNumberOfDaysBetween(startDate, endDateScF);
+const DaysToScF = document.getElementById("ScF");
+DaysToScF.textContent = "ScF on Nov 2, 2023 in " + numberOfDaysScF + " days";
+
+// Calculate remaining days to FF:
+// const startDate = new Date;
+const endDateFF = new Date('2023-11-16');
+
+const numberOfDaysFF = getNumberOfDaysBetween(startDate, endDateFF);
+const DaysToFF = document.getElementById("FF");
+DaysToFF.textContent = "FF on Nov 16, 2023 in " + numberOfDaysFF + " days";
+
+// Calculate remaining days to RF:
+// const startDate = new Date;
+const endDateRF = new Date('2023-12-14');
+
+const numberOfDaysRF = getNumberOfDaysBetween(startDate, endDateRF);
+const DaysToRF = document.getElementById("RF");
+DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
+
+       //Display plan
+        const plan = document.getElementById("Plan");
+        const today = new Date();
+        const p1s = new Date('2023-08-14');
+        const p1e = new Date('2023-08-25');
+        const p2s = new Date('2023-08-28');
+        const p2e = new Date('2023-09-08');
+        const p3s = new Date('2023-09-11');
+        const p3e = new Date('2023-09-22');
+        const p4s = new Date('2023-09-25');
+        const p4e = new Date('2023-10-06');
+        const p5s = new Date('2023-10-09');
+        const p5e = new Date('2023-10-20');
+        const p6s = new Date('2023-10-23');
+        const p6e = new Date('2023-11-03');
+        const p7s = new Date('2023-11-06');
+        const p7e = new Date('2023-11-17');
+        const p8s = new Date('2023-11-20');
+        const p8e = new Date('2023-12-15');
+        console.log(p1e - p1s);    
+        if (today >= p1s && today <=p1e)
+        {
+            plan.textContent = "P1 8A";
+           
+        }
+        else if (today >= p2s && today <=p2e)
+        {
+            plan.textContent = "P2 8B";
+           
+        }
+        else if (today >= p3s && today <=p3e)
+        {
+            plan.textContent = "P3 9A";
+           
+        }
+        else if (today >= p4s && today <=p4e)
+        {
+            plan.textContent = "P4 9B";
+           
+        }
+        else if (today >= p5s && today <=p5e)
+        {
+            plan.textContent = "P5 10A";
+           
+        }
+        else if (today >= p6s && today <=p6e)
+        {
+            plan.textContent = "P6 10B";
+           
+        }
+        else if (today >= p7s && today <=p7e)
+        {
+            plan.textContent = "P7 11A";
+           
+        }
+        else if (today >= p8s && today <=p8e)
+        {
+            plan.textContent = "P8 11B";
+           
+        }
+        
+       
        //Display date
        const showDate = document.getElementById("Date");
        const currentDate1 = new Date();
