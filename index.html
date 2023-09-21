@@ -172,11 +172,23 @@
         <div id="AirFreshner" onclick="done(this)">
             <p>Air Freshner</p>
         </div>
+        <div id="AuntyPay" onclick="done(this)">
+            <p>Aunty Pay</p>
+        </div>
+        <div id="AyushPay" onclick="done(this)">
+            <p>Ayush Pay</p>
+        </div>
+        <div id="BhawnaPay" onclick="done(this)">
+            <p>Bhawna Pay</p>
+        </div>
         <div id="BringMilkBasket" onclick="done(this)" class="highlight">
             <p>Bring Milk Basket</p>
         </div>
         <div id="Bose" onclick="done(this)">
             <p>Bose</p>
+        </div>
+        <div id="BottleClean" onclick="done(this)" class="highlight">
+            <p>Bottle Clean</p>
         </div>
         <div id="CarCleaning" onclick="done(this)">
             <p>Car Cleaning</p>
@@ -208,6 +220,15 @@
         <div id="Fountain" onclick="done(this)">
             <p>Fountain</p>
         </div>
+        <div id="Geyser" onclick="done(this)" class="highlight">
+            <p>Geyser</p>
+        </div>
+        <div id="HariniPay" onclick="done(this)">
+            <p>Harini Pay</p>
+        </div>
+        <div id="Homework" onclick="done(this)" class="highlight">
+            <p>Homework</p>
+        </div>
         <div id="KeepMilkBasket" onclick="done(this)" class="highlight">
             <p>Keep Milk Basket</p>
         </div>
@@ -217,11 +238,17 @@
         <div id="WashClothes" onclick="done(this)" class="highlight">
             <p>Wash Clothes</p>
         </div>
+        <div id="LineaCleaner" onclick="done(this)">
+            <p>Linea Cleaner</p>
+        </div>
         <div id="LiquidSoap" onclick="done(this)">
             <p>Liquid Soap</p>
         </div>
         <div id="M30S" onclick="done(this)">
             <p>M30S</p>
+        </div>
+        <div id="MaidPay" onclick="done(this)">
+            <p>Maid Pay</p>
         </div>
         <div id="Microwave" onclick="done(this)">
             <p>Microwave</p>
@@ -231,6 +258,9 @@
         </div>
         <div id="MorningWashDishes" onclick="done(this)" class="highlight">
             <p>Morning Dish Wash</p>
+        </div>
+        <div id="NanoCleaner" onclick="done(this)">
+            <p>Nano Cleaner</p>
         </div>
         <div id="Nails" onclick="done(this)">
             <p>Nails</p>
@@ -247,6 +277,12 @@
         <div id="Oven" onclick="done(this)">
             <p>Oven</p>
         </div>
+        <div id="ParentsPay" onclick="done(this)">
+            <p>Parents Pay</p>
+        </div>
+        <div id="PaytmRefill" onclick="done(this)">
+            <p>Paytm Refill</p>
+        </div>
         <div id="PBags" onclick="done(this)">
             <p>Paper Bags</p>
         </div>
@@ -256,8 +292,17 @@
         <div id="Plants" onclick="done(this)">
             <p>Plants</p>
         </div>
+        <div id="PoojaOil" onclick="done(this)">
+            <p>Pooja Oil</p>
+        </div>
         <div id="Pril" onclick="done(this)">
             <p>Pril</p>
+        </div>
+        <div id="Radio" onclick="done(this)">
+            <p>Radio</p>
+        </div>
+        <div id="ShavingBlade" onclick="done(this)">
+            <p>Change Shaving Blade</p>
         </div>
         <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
@@ -430,6 +475,98 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
         //Get current date
         const currentDate = new Date();
 
+        //Check if the current date is the 1st day of the month
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('NanoCleaner');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('NanoCleaner');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('LineaCleaner');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('LineaCleaner');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('ParentsPay');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('ParentsPay');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('MaidPay');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('MaidPay');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('AuntyPay');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('AuntyPay');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('PaytmRefill');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('PaytmRefill');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('AyushPay');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('AyushPay');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('BhawnaPay');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('BhawnaPay');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDate()===1){
+            //Apply the style to the element
+            var element = document.getElementById('HariniPay');
+            element.classList.add('highlight');
+            
+        }
+        else{
+            var element = document.getElementById('HariniPay');
+            element.classList.add('defaultcolor');
+        }
+
         //Check if the current date is the 11th day of the month
         if(currentDate.getDate()===11 || currentDate.getDate()===26){
             //Apply the style to the element
@@ -593,6 +730,15 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
         }
         if(remainder === 0){
             //Apply the style to the element
+            var element = document.getElementById('ELighter');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('ELighter');
+            element.classList.add('defaultcolor');
+        }
+        if(remainder === 0){
+            //Apply the style to the element
             var element = document.getElementById('M30S');
             element.classList.add('highlight');
         }
@@ -602,33 +748,44 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
         }
         if(remainder === 0){
             //Apply the style to the element
-            var element = document.getElementById('ELighter');
+            var element = document.getElementById('Radio');
             element.classList.add('highlight');
         }
         else{
-            var element = document.getElementById('ELighter');
+            var element = document.getElementById('Radio');
             element.classList.add('defaultcolor');
         }
         //Check if the current date is the 13th day of the month
-        if(currentDate.getDate()===14 || currentDate.getDate()===29){
+        if(currentDate.getDate()===13 || currentDate.getDate()===28){
             //Apply the style to the element
             var element = document.getElementById('PBags');
             element.classList.add('highlight');
         }
         else{
             var element = document.getElementById('PBags');
+            element.classList.add('defaultcolor');
+        }
+        //Check if the current date is the 14th day of the month
+        if(currentDate.getDate()===14 || currentDate.getDate()===29){
+            //Apply the style to the element
+            var element = document.getElementById('PoojaOil');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('PoojaOil');
+            element.classList.add('defaultcolor');
+        }
+        //Check if the current date is the 14th day of the month
+        if(currentDate.getDate()===15 || currentDate.getDate()===30){
+            //Apply the style to the element
+            var element = document.getElementById('ShavingBlade');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('ShavingBlade');
             element.classList.add('defaultcolor');
         }
         //Check if the current day is Sunday
-        if(currentDate.getDay()===0){
-            //Apply the style to the element
-            var element = document.getElementById('OfficePrep');
-            element.classList.add('highlight');
-        }
-        else{
-            var element = document.getElementById('OfficePrep');
-            element.classList.add('defaultcolor');
-        }
         if(currentDate.getDay()===0){
             //Apply the style to the element
             var element = document.getElementById('CarCleaning');
@@ -681,34 +838,35 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
             element.classList.add('defaultcolor');
         }
         
+        //Check if the current day is Wednesday
+        if(currentDate.getDay()===3){
+            //Apply the style to the element
+            var element = document.getElementById('Nails');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Nails');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===3){
+            //Apply the style to the element
+            var element = document.getElementById('Ears');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Ears');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===3){
+            //Apply the style to the element
+            var element = document.getElementById('Nose');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('Nose');
+            element.classList.add('defaultcolor');
+        }
         //Check if the current day is Saturday
-        if(currentDate.getDay()===6){
-            //Apply the style to the element
-            var element = document.getElementById('Nails');
-            element.classList.add('highlight');
-        }
-        else{
-            var element = document.getElementById('Nails');
-            element.classList.add('defaultcolor');
-        }
-        if(currentDate.getDay()===6){
-            //Apply the style to the element
-            var element = document.getElementById('Ears');
-            element.classList.add('highlight');
-        }
-        else{
-            var element = document.getElementById('Ears');
-            element.classList.add('defaultcolor');
-        }
-        if(currentDate.getDay()===6){
-            //Apply the style to the element
-            var element = document.getElementById('Nose');
-            element.classList.add('highlight');
-        }
-        else{
-            var element = document.getElementById('Nose');
-            element.classList.add('defaultcolor');
-        }
         if(currentDate.getDay()===6){
             //Apply the style to the element
             var element = document.getElementById('Dusting');
