@@ -115,6 +115,9 @@
 <body>
     <div class="flex-container">
         <div id="Date" class="informational"></div>
+        <div id="God" class="informational">
+            <p></p>
+        </div>
         <div id="Plan" class="informational">
             <p></p>
         </div>
@@ -295,6 +298,9 @@
         <div id="PoojaOil" onclick="done(this)">
             <p>Pooja Oil</p>
         </div>
+        <div id="Press" onclick="done(this)">
+            <p>Call press</p>
+        </div>
         <div id="Pril" onclick="done(this)">
             <p>Pril</p>
         </div>
@@ -343,7 +349,7 @@
 }
 
 // Calculate remaining days to ScF:
-const startDate = new Date;
+const startDate = new Date();
 const endDateScF = new Date('2023-11-02');
 
 const numberOfDaysScF = getNumberOfDaysBetween(startDate, endDateScF);
@@ -892,64 +898,96 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
             //Apply the style to the element
             var element = document.getElementById('Poha');
             element.classList.add('informational');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Lord Surya";
         }
         else{
             var element = document.getElementById('Poha');
             element.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
         if(currentDate.getDay()===1){
             //Apply the style to the element
             var element = document.getElementById('Upma');
             element.classList.add('informational');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Lord Shiva";
         }
         else{
             var element = document.getElementById('Upma');
             element.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
         if(currentDate.getDay()===2){
             //Apply the style to the element
             var element = document.getElementById('Sabudana');
             element.classList.add('informational');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Lord Hanuman";
         }
         else{
             var element = document.getElementById('Sabudana');
             element.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
         if(currentDate.getDay()===3){
             //Apply the style to the element
             var element = document.getElementById('Sewai');
             element.classList.add('informational');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Lord Ganesha";
         }
         else{
             var element = document.getElementById('Sewai');
             element.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
         if(currentDate.getDay()===4){
             //Apply the style to the element
             var element = document.getElementById('Idli');
             element.classList.add('informational');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Lord Vishnu";
         }
         else{
             var element = document.getElementById('Idli');
             element.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
         if(currentDate.getDay()===5){
             //Apply the style to the element
             var element = document.getElementById('IdliUpma');
             element.classList.add('informational');
+            var elementPress = document.getElementById('Press');
+            elementPress.classList.add('highlight');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Goddess Durga";
         }
         else{
             var element = document.getElementById('IdliUpma');
             element.classList.add('defaultcolor');
+            var elementPress = document.getElementById('Press');
+            elementPress.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
         if(currentDate.getDay()===6){
             //Apply the style to the element
             var element = document.getElementById('Dosa');
             element.classList.add('informational');
+            var elementGod = document.getElementById('God');
+            elementGod.textContent = "Lord Shani";
         }
         else{
             var element = document.getElementById('Dosa');
             element.classList.add('defaultcolor');
+            var elementGod = document.getElementById('God');
+            elementGod.classList.add('defaultcolor');
         }
 
         //Informational
