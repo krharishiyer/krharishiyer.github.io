@@ -40,7 +40,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
             
@@ -55,7 +55,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
         }
@@ -83,7 +83,7 @@
             text-align: center;
             padding: 1rem;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.5rem;
+            /* font-size: 1.5rem; */
             border-radius: .625rem;
             margin: .625rem;
         }
@@ -121,7 +121,7 @@
         <div id="Season" class="informational">
             <p></p>
         </div>
-        <div id="Plan" class="informational">
+        <div id="Plan" class="defaultcolor">
             <p></p>
         </div>
         <div id="ScF" class="informational">
@@ -401,46 +401,53 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
         console.log(today);    
         if (today >= p1s && today <= p1e)
         {
-            Plan.textContent = "P1 8A";
-           
+            plan.textContent = "P1 8A";
+            plan.classList.add('informational');
         }
         else if (today >= p2s && today <= p2e)
         {
-            Plan.textContent = "P2 8B";
+            plan.textContent = "P2 8B";
+            plan.classList.add('informational');
            
         }
         else if (today >= p3s && today <= p3e)
         {
-            Plan.textContent = "P3 9A";
+            plan.textContent = "P3 9A";
             console.log(p3e);
+            plan.classList.add('informational');
            
         }
         else if (today >= p4s && today <= p4e)
         {
-            Plan.textContent = "P4 9B";
+            plan.textContent = "P4 9B";
+            plan.classList.add('informational');
            
         }
         else if (today >= p5s && today <= p5e)
         {
-            Plan.textContent = "P5 10A";
+            plan.textContent = "P5 10A";
+            plan.classList.add('informational');
            
         }
         else if (today >= p6s && today <= p6e)
         {
-            Plan.textContent = "P6 10B";
+            plan.textContent = "P6 10B";
+            plan.classList.add('informational');
            
         }
         else if (today >= p7s && today <= p7e)
         {
-            Plan.textContent = "P7 11A";
+            plan.textContent = "P7 11A";
+            plan.classList.add('informational');
            
         }
         else if (today >= p8s && today <= p8e)
         {
-            Plan.textContent = "P8 11B";
+            plan.textContent = "P8 11B";
+            plan.classList.add('informational');
            
         }
-        
+    
        
        //Display date
        const showDate = document.getElementById("Date");
