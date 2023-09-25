@@ -124,6 +124,9 @@
         <div id="Plan" class="defaultcolor">
             <p></p>
         </div>
+        <div id="Pat" class="informational">
+            <p></p>
+        </div>
         <div id="ScF" class="informational">
             <p></p>
         </div>
@@ -146,22 +149,22 @@
             <p>SF Q4</p>
         </div>
         <div id="Dosa">
-            <p>Breakfast<br><i>Dosa</i></p>
+            <p>Breakfast<br><i>Dosa<br><sub> > Poha</sub></i></p>
         </div>
         <div id="Idli">
-            <p>Breakfast<br><i>Idli</i></p>
+            <p>Breakfast<br><i>Idli<br><sub> > Idli Upma</sub></i></p>
         </div>
         <div id="IdliUpma">
-            <p>Breakfast<br><i>Idli Upma</i></p>
+            <p>Breakfast<br><i>Idli Upma<br><sub> > Dosa</sub></i></p>
         </div>
         <div id="Poha">
-            <p>Breakfast<br><i>Poha</i></p>
+            <p>Breakfast<br><i>Poha<br><sub> > Upma</sub></i></p>
         </div>
         <div id="Sabudana">
-            <p>Breakfast<br><i>Sabudana</i></p>
+            <p>Breakfast<br><i>Sabudana<br><sub> > Sewai</sub></i></p>
         </div>
         <div id="Sewai">
-            <p>Breakfast<br><i>Sewai</i></p>
+            <p>Breakfast<br><i>Sewai<br><sub> > Idli</sub></i></p>
         </div>
         <div id="Upma">
             <p>Breakfast<br><i>Upma<br><sub> > Sabudana</sub></i></p>
@@ -451,7 +454,95 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
            
         }
     
-       
+       //Display pat
+       const pat = document.getElementById("Pat");
+        // const today = new Date();
+        // const today = new Date().toISOString().slice(0, 10);
+        const p2467 = new Date('2023-09-25').toISOString().slice(0, 10);
+        const p2468 = new Date('2023-10-02').toISOString().slice(0, 10);
+        const p2469 = new Date('2023-10-09').toISOString().slice(0, 10);
+        const p24610 = new Date('2023-10-16').toISOString().slice(0, 10);
+        const p24611 = new Date('2023-10-23').toISOString().slice(0, 10);
+        const p24612 = new Date('2023-10-30').toISOString().slice(0, 10);
+        const p24613 = new Date('2023-11-06').toISOString().slice(0, 10);
+        const p24614 = new Date('2023-11-13').toISOString().slice(0, 10);
+        const p246e1 = new Date('2023-11-20').toISOString().slice(0, 10);
+        const p246e2 = new Date('2023-11-27').toISOString().slice(0, 10);
+        const p24615 = new Date('2023-12-04').toISOString().slice(0, 10);
+        const p24616 = new Date('2023-12-11').toISOString().slice(0, 10);
+        console.log(today);    
+        if (today >= p2467 && today <= p2468)
+        {
+            pat.textContent = "246.7";
+            pat.classList.add('informational');
+        }
+        else if (today >= p2468 && today <= p2469)
+        {
+            pat.textContent = "246.8";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p2469 && today <= p24610)
+        {
+            pat.textContent = "246.9";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24610 && today <= p24611)
+        {
+            pat.textContent = "246.10";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24611 && today <= p24612)
+        {
+            pat.textContent = "246.11";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24612 && today <= p24613)
+        {
+            pat.textContent = "246.12";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24613 && today <= p24614)
+        {
+            pat.textContent = "246.13";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24614 && today <= p246e1)
+        {
+            pat.textContent = "246.14";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p246e1 && today <= p246e2)
+        {
+            pat.textContent = "246.e";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p246e2 && today <= p24615)
+        {
+            pat.textContent = "246.e";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24615 && today <= p24616)
+        {
+            pat.textContent = "246.15";
+            pat.classList.add('informational');
+           
+        }
+        else if (today >= p24616)
+        {
+            pat.textContent = "246.16";
+            pat.classList.add('informational');
+           
+        }
+
        //Display date
        const showDate = document.getElementById("Date");
        const currentDate1 = new Date();
