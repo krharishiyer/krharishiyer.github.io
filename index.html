@@ -164,7 +164,7 @@
             <p>Breakfast<br><i>Sewai</i></p>
         </div>
         <div id="Upma">
-            <p>Breakfast<br><i>Upma</i></p>
+            <p>Breakfast<br><i>Upma<br><sub> > Sabudana</sub></i></p>
         </div>
         <div id="AfternoonWashDishes" onclick="done(this)" class="highlight">
             <p>Afternoon Dish Wash</p>
@@ -315,6 +315,9 @@
         </div>
         <div id="ShavingBlade" onclick="done(this)">
             <p>Change Shaving Blade</p>
+        </div>
+        <div id="SNote" onclick="done(this)">
+            <p>S Note Backup</p>
         </div>
         <div id="STab" onclick="done(this)">
             <p>S Tablet</p>
@@ -797,7 +800,7 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
             element.classList.add('defaultcolor');
         }
         //Check if the current date is the 14th day of the month
-        if(currentDate.getDate()===15 || currentDate.getDate()===30){
+        if(currentDate.getDate()===10 || currentDate.getDate()===25){
             //Apply the style to the element
             var element = document.getElementById('ShavingBlade');
             element.classList.add('highlight');
@@ -814,6 +817,15 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
         }
         else{
             var element = document.getElementById('CarCleaning');
+            element.classList.add('defaultcolor');
+        }
+        if(currentDate.getDay()===0){
+            //Apply the style to the element
+            var element = document.getElementById('SNote');
+            element.classList.add('highlight');
+        }
+        else{
+            var element = document.getElementById('SNote');
             element.classList.add('defaultcolor');
         }
         //Check if the current day is Monday or Wednesday
@@ -835,6 +847,7 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
             var element = document.getElementById('Office');
             element.classList.add('defaultcolor');
         }
+        
        
         
         //Check if the current day is Sunday or Tuesday
