@@ -115,6 +115,7 @@
 <body>
     <div class="flex-container">
         <div id="Date" class="informational"></div>
+        <div id="Temp" class="informational"></div>
         <div id="God" class="informational">
             <p></p>
         </div>
@@ -349,6 +350,52 @@
         
     </div>
     <script>
+        
+
+function findTemperature(){
+// Replace 'YOUR_API_KEY' with your actual WeatherAPI.com API key
+
+const apiKey = 'Yef6f0de92af24f3b97c172714230610';
+const city = 'New York'; // Replace with the city you want to get the temperature for
+
+// Construct the API URL
+const apiUrl = `http://api.weatherapi.com/v1/current.json?key=ef6f0de92af24f3b97c172714230610&q=Bangalore&aqi=no`;
+
+// Make a GET request to the WeatherAPI.com API
+fetch(apiUrl)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then((data) => {
+    // Extract the temperature information from the API response
+    const temperatureCelsius = data.current.temp_c;
+    const temperatureFahrenheit = data.current.temp_f;
+    const lastUpdated = new Date();
+    var updateHour = lastUpdated.getHours();
+    var updateMinute = lastUpdated.getMinutes();
+    const location = data.location.name;
+    
+    
+    // Display the temperature information
+    console.log(`Temperature in Celsius: ${temperatureCelsius}°C`);
+    console.log(`Temperature in Fahrenheit: ${temperatureFahrenheit}°F`);
+    console.log(`Temperature in Fahrenheit: ${location}°F`);
+    const Temperature = document.getElementById("Temp");
+    
+    // Temperature.innerHTML = location + ' ' + temperatureCelsius + '°C ' + lastUpdated;
+    Temperature.innerHTML = `${location} ${temperatureCelsius}°C <br> Updated at ${updateHour}:${updateMinute}`;
+  })
+  .catch((error) => {
+    console.error('There was a problem fetching data:', error);
+  });
+  
+}
+
+
+
     //Calculate remaining days
        function getNumberOfDaysBetween(startDate, endDate) {
   // Calculate the time difference in milliseconds
@@ -544,11 +591,21 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
         }
 
        //Display date
-       const showDate = document.getElementById("Date");
+       
+       
+       function updateDate()
+       {
+        const showDate = document.getElementById("Date");
        const currentDate1 = new Date();
        const formattedDate = currentDate1.toDateString();
-       showDate.textContent = formattedDate;
-
+       var currentTime1 = new Date();
+        var hours = currentTime1.getHours();
+       var minutes = currentTime1.getMinutes();
+       showDate.innerHTML = `${formattedDate} <br> ${hours}:${minutes}`;
+       }
+       const interval1 = 1 * 60 * 1000; // 1 minutes in milliseconds
+       setInterval(updateDate, interval1);
+       updateDate();
         //Refresh page    
         function refreshPage(){
             location.reload();
@@ -556,9 +613,9 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
        
 
     //    // Set a timer to refresh the page every 15 minutes (in milliseconds)
-    //    const interval = 1 * 60 * 1000; // 15 minutes in milliseconds
-    //     setInterval(refreshPage, interval);
-
+    const interval2 = 15 * 60 * 1000; // 15 minutes in milliseconds
+         setInterval(findTemperature, interval2);
+         findTemperature();
     //Calculate the time remaining until 12:01 AM
     function getTimeUntil1201AM()
         {
