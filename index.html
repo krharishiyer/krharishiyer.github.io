@@ -374,6 +374,7 @@ fetch(apiUrl)
   })
   .then((data) => {
     // Extract the temperature information from the API response
+    console.log(data);
     const temperatureCelsius = data.current.temp_c;
     const temperatureFahrenheit = data.current.temp_f;
     const lastUpdated = new Date();
@@ -1115,7 +1116,7 @@ DaysToRF.textContent = "RF on Dec 14, 2023 in " + numberOfDaysRF + " days";
             element.classList.add('informational');
             var elementGod = document.getElementById('God');
             elementGod.textContent = "Lord Hanuman Day";
-            var elementCloth = document.getElementById('Red');
+            var elementCloth = document.getElementById('ClothColor');
             elementCloth.textContent = "Wear Red dress";
         }
         else{
