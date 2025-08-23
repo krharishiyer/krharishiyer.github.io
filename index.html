@@ -155,40 +155,40 @@ h1 {
     }
 
     function renderDashboard(events) {
-      const dashboard = document.getElementById("dashboard");
-      dashboard.innerHTML = "";
+  const dashboard = document.getElementById("dashboard");
+  dashboard.innerHTML = "";
 
-      events.forEach(event => {
-        const eventId = `${todayKey}_${event.name}`;
-        const isDone = tickState[eventId] === true;
-        const isDueToday = isEventToday(event);
+  events.forEach(event => {
+    const eventId = `${todayKey}_${event.name}`;
+    const isDone = tickState[eventId] === true;
+    const isDueToday = isEventToday(event);
 
-        const ledClass = (!isDone && isDueToday) ? "led blink" : "led";
-        const tickClass = isDone ? "tick done" : "tick";
+    const ledClass = (!isDone && isDueToday) ? "led blink" : "led";
+    const tickClass = isDone ? "tick done" : "tick";
 
-        const div = document.createElement("div");
-        div.className = "event";
+    const div = document.createElement("div");
+    div.className = "event";
 
-        const label = document.createElement("div");
-        label.className = "label";
-        label.innerHTML = `<div class="${ledClass}"></div>${event.name}`;
+    const label = document.createElement("div");
+    label.className = "label";
+    label.innerHTML = `<div class="${ledClass}"></div>${event.name}`;
 
-        const tick = document.createElement("div");
-        tick.className = tickClass;
-        tick.innerHTML = "✔";
-        tick.title = "Mark as done";
+    const tick = document.createElement("div");
+    tick.className = tickClass;
+    tick.innerHTML = "✔";
+    tick.title = "Mark as done";
 
-        tick.addEventListener("click", () => {
-          tickState[eventId] = !tickState[eventId];
-          localStorage.setItem("tickState", JSON.stringify(tickState));
-          renderDashboard(events);
-        });
+    tick.addEventListener("click", () => {
+      tickState[eventId] = !tickState[eventId];
+      localStorage.setItem("tickState", JSON.stringify(tickState));
+      renderDashboard(events);
+    });
 
-        div.appendChild(label);
-        div.appendChild(tick);
-        dashboard.appendChild(div);
-      });
-    }
+    div.appendChild(label);
+    div.appendChild(tick);
+    dashboard.appendChild(div);
+  });
+}
 
     function resetTicksAtMidnight() {
       const now = new Date();
