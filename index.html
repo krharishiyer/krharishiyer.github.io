@@ -16,11 +16,20 @@
       display: flex;
       flex-direction: column;
     }
-    h1 {
-      text-align: center;
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+    
+h1 {
+  font-size: 0.5em; /* 50% of default */
+  margin: 0;
+}
+
     input[type="file"] {
       display: block;
       margin: 0 auto 10px auto;
@@ -34,16 +43,17 @@
       align-content: start;
     }
     .event {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 6px;
-      font-size: 1em;
-      white-space: nowrap;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 0.5em; /* 50% of default */
+  white-space: nowrap;
+}
+
     .label {
       display: flex;
       align-items: center;
@@ -65,36 +75,38 @@
       50% { opacity: 0; }
     }
     .tick {
-      cursor: pointer;
-      font-size: 1.2em;
-      color: white;
-      transition: color 0.3s;
-    }
-    .tick.done {
-      color: limegreen;
-    }
+  cursor: pointer;
+  font-size: 0.5em; /* 50% of default */
+  color: white;
+  transition: color 0.3s;
+}
+
+.tick.done {
+  color: limegreen;
+}
+
 .file-label {
-  display: inline-block;
   background-color: #222;
   color: white;
-  padding: 10px 16px;
-  margin: 0 auto 10px auto;
-  text-align: center;
+  padding: 6px 10px;
   border: 1px solid #555;
   border-radius: 6px;
-  font-size: 1em;
+  font-size: 0.5em; /* 50% of default */
   cursor: pointer;
-  width: fit-content;
 }
+
 .file-label:active {
   background-color: #444;
 }
   </style>
 </head>
 <body>
+  <div class="header">
   <h1>🗓️ Event Dashboard – <span id="today"></span></h1>
-  <label for="fileInput" class="file-label">📂 Choose Events File</label>
-<input type="file" id="fileInput" accept=".txt" style="display:none;">
+  <label for="fileInput" class="file-label">📂 Choose File</label>
+  <input type="file" id="fileInput" accept=".txt" style="display:none;">
+</div>
+
 
   <div id="dashboard"></div>
 
