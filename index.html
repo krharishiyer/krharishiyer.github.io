@@ -73,11 +73,29 @@
     .tick.done {
       color: limegreen;
     }
+.file-label {
+  display: inline-block;
+  background-color: #222;
+  color: white;
+  padding: 10px 16px;
+  margin: 0 auto 10px auto;
+  text-align: center;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  width: fit-content;
+}
+.file-label:active {
+  background-color: #444;
+}
   </style>
 </head>
 <body>
   <h1>🗓️ Event Dashboard – <span id="today"></span></h1>
-  <input type="file" id="fileInput" accept=".txt">
+  <label for="fileInput" class="file-label">📂 Choose Events File</label>
+<input type="file" id="fileInput" accept=".txt" style="display:none;">
+
   <div id="dashboard"></div>
 
   <script>
