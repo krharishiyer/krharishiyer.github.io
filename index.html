@@ -17,24 +17,33 @@
       flex-direction: column;
     }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-    
-h1 {
-  font-size: 0.5em; /* 50% of default */
-  margin: 0;
-}
-
-    input[type="file"] {
-      display: block;
-      margin: 0 auto 10px auto;
-      color: white;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
     }
+
+    h1 {
+      font-size: 0.5em;
+      margin: 0;
+    }
+
+    .file-label {
+      background-color: #222;
+      color: white;
+      padding: 6px 10px;
+      border: 1px solid #555;
+      border-radius: 6px;
+      font-size: 0.5em;
+      cursor: pointer;
+    }
+
+    .file-label:active {
+      background-color: #444;
+    }
+
     #dashboard {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -42,22 +51,24 @@ h1 {
       flex-grow: 1;
       align-content: start;
     }
+
     .event {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px;
-  background-color: #111;
-  border: 1px solid #333;
-  border-radius: 6px;
-  font-size: 0.5em; /* 50% of default */
-  white-space: nowrap;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 6px;
+      font-size: 0.5em;
+      white-space: nowrap;
+    }
 
     .label {
       display: flex;
       align-items: center;
     }
+
     .led {
       width: 12px;
       height: 12px;
@@ -66,48 +77,35 @@ h1 {
       background-color: transparent;
       flex-shrink: 0;
     }
+
     .led.blink {
       background-color: red;
       animation: blink 1s infinite;
     }
+
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
+
     .tick {
-  cursor: pointer;
-  font-size: 0.5em; /* 50% of default */
-  color: white;
-  transition: color 0.3s;
-}
+      cursor: pointer;
+      font-size: 0.5em;
+      color: white;
+      transition: color 0.3s;
+    }
 
-.tick.done {
-  color: limegreen;
-}
-
-.file-label {
-  background-color: #222;
-  color: white;
-  padding: 6px 10px;
-  border: 1px solid #555;
-  border-radius: 6px;
-  font-size: 0.5em; /* 50% of default */
-  cursor: pointer;
-}
-
-.file-label:active {
-  background-color: #444;
-}
+    .tick.done {
+      color: limegreen;
+    }
   </style>
 </head>
 <body>
   <div class="header">
-  <h1>🗓️ Event Dashboard – <span id="today"></span></h1>
-  <label for="fileInput" class="file-label">📂 Choose File</label>
-  <input type="file" id="fileInput" accept=".txt" style="display:none;">
-</div>
-
-
+    <h1>🗓️ Event Dashboard – <span id="today"></span></h1>
+    <label for="fileInput" class="file-label">📂 Choose File</label>
+    <input type="file" id="fileInput" accept=".txt" style="display:none;">
+  </div>
   <div id="dashboard"></div>
 
   <script>
@@ -116,6 +114,7 @@ h1 {
     document.getElementById("today").textContent = today.toDateString();
 
     const tickState = JSON.parse(localStorage.getItem("tickState") || "{}");
+    const savedEvents = JSON.parse(localStorage.getItem("eventData") || "[]");
 
     function isEventToday(event) {
       const nextDate = getNextOccurrence(event);
@@ -155,40 +154,40 @@ h1 {
     }
 
     function renderDashboard(events) {
-  const dashboard = document.getElementById("dashboard");
-  dashboard.innerHTML = "";
+      const dashboard = document.getElementById("dashboard");
+      dashboard.innerHTML = "";
 
-  events.forEach(event => {
-    const eventId = `${todayKey}_${event.name}`;
-    const isDone = tickState[eventId] === true;
-    const isDueToday = isEventToday(event);
+      events.forEach(event => {
+        const eventId = `${todayKey}_${event.name}`;
+        const isDone = tickState[eventId] === true;
+        const isDueToday = isEventToday(event);
 
-    const ledClass = (!isDone && isDueToday) ? "led blink" : "led";
-    const tickClass = isDone ? "tick done" : "tick";
+        const ledClass = (!isDone && isDueToday) ? "led blink" : "led";
+        const tickClass = isDone ? "tick done" : "tick";
 
-    const div = document.createElement("div");
-    div.className = "event";
+        const div = document.createElement("div");
+        div.className = "event";
 
-    const label = document.createElement("div");
-    label.className = "label";
-    label.innerHTML = `<div class="${ledClass}"></div>${event.name}`;
+        const label = document.createElement("div");
+        label.className = "label";
+        label.innerHTML = `<div class="${ledClass}"></div>${event.name}`;
 
-    const tick = document.createElement("div");
-    tick.className = tickClass;
-    tick.innerHTML = "✔";
-    tick.title = "Mark as done";
+        const tick = document.createElement("div");
+        tick.className = tickClass;
+        tick.innerHTML = "✔";
+        tick.title = "Mark as done";
 
-    tick.addEventListener("click", () => {
-      tickState[eventId] = !tickState[eventId];
-      localStorage.setItem("tickState", JSON.stringify(tickState));
-      renderDashboard(events);
-    });
+        tick.addEventListener("click", () => {
+          tickState[eventId] = !tickState[eventId];
+          localStorage.setItem("tickState", JSON.stringify(tickState));
+          renderDashboard(events);
+        });
 
-    div.appendChild(label);
-    div.appendChild(tick);
-    dashboard.appendChild(div);
-  });
-}
+        div.appendChild(label);
+        div.appendChild(tick);
+        dashboard.appendChild(div);
+      });
+    }
 
     function resetTicksAtMidnight() {
       const now = new Date();
@@ -197,6 +196,11 @@ h1 {
         localStorage.setItem("tickState", JSON.stringify({}));
         location.reload();
       }, millisUntilMidnight + 1000);
+    }
+
+    if (savedEvents.length > 0) {
+      renderDashboard(savedEvents);
+      resetTicksAtMidnight();
     }
 
     document.getElementById("fileInput").addEventListener("change", function () {
@@ -210,6 +214,7 @@ h1 {
           const [name, unit, interval, startDate] = line.split(",");
           return { name, unit, interval: parseInt(interval), startDate };
         });
+        localStorage.setItem("eventData", JSON.stringify(events));
         renderDashboard(events);
         resetTicksAtMidnight();
       };
@@ -217,4 +222,4 @@ h1 {
     });
   </script>
 </body>
-</html>              
+</html>
