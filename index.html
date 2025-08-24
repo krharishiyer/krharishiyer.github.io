@@ -21,19 +21,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
       flex-wrap: wrap;
+      margin-bottom: 10px;
     }
 
-    h1 {
+    .title {
       font-size: 0.5em;
-      margin: 0;
+      flex: 1;
+      text-align: left;
     }
 
     .summary {
       font-size: 0.5em;
-      margin: 6px 0;
-      text-align: left;
+      flex: 1;
+      text-align: center;
     }
 
     .file-label {
@@ -44,6 +45,8 @@
       border-radius: 6px;
       font-size: 0.5em;
       cursor: pointer;
+      flex: 1;
+      text-align: right;
     }
 
     .file-label:active {
@@ -104,16 +107,49 @@
     .tick.done {
       color: limegreen;
     }
+
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+      display: none;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: red;
+      animation: fall 2s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>🗓️ Event Dashboard – <span id="today"></span></h1>
+    <div class="title">🗓️ Event Dashboard – <span id="today"></span></div>
+    <div class="summary" id="summaryBanner">Loading summary...</div>
     <label for="fileInput" class="file-label">📂 Choose File</label>
     <input type="file" id="fileInput" accept=".txt" style="display:none;">
   </div>
-  <div class="summary" id="summaryBanner">Loading summary...</div>
+
   <div id="dashboard"></div>
+  <div id="confetti"></div>
 
   <script>
     const today = new Date();
@@ -205,39 +241,25 @@
       });
 
       summaryBanner.textContent = `🧾 ${totalToday} events today, ${completedToday} completed`;
+
+      if (totalToday > 0 && completedToday === totalToday) {
+        triggerConfetti();
+      } else {
+        stopConfetti();
+      }
     }
 
-    function resetTicksAtMidnight() {
-      const now = new Date();
-      const millisUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
-      setTimeout(() => {
-        localStorage.setItem("tickState", JSON.stringify({}));
-        location.reload();
-      }, millisUntilMidnight + 1000);
-    }
+    function triggerConfetti() {
+      const confetti = document.getElementById("confetti");
+      confetti.innerHTML = "";
+      confetti.style.display = "block";
 
-    if (savedEvents.length > 0) {
-      renderDashboard(savedEvents);
-      resetTicksAtMidnight();
-    }
-
-    document.getElementById("fileInput").addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const lines = e.target.result.split("\n").map(line => line.trim()).filter(Boolean);
-        const events = lines.map(line => {
-          const [name, unit, interval, startDate] = line.split(",");
-          return { name, unit, interval: parseInt(interval), startDate };
-        });
-        localStorage.setItem("eventData", JSON.stringify(events));
-        renderDashboard(events);
-        resetTicksAtMidnight();
-      };
-      reader.readAsText(file);
-    });
-  </script>
-</body>
-</html>
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.top = "-10px";
+        piece.style.backgroundColor = getRandomColor();
+        piece.style.animationDuration = 1 + Math.random() * 2 + "s";
+        confetti.appendChild(piece);
+     
