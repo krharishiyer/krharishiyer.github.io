@@ -21,13 +21,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       flex-wrap: wrap;
     }
 
     h1 {
       font-size: 0.5em;
       margin: 0;
+    }
+
+    .summary {
+      font-size: 0.5em;
+      margin: 6px 0;
+      text-align: left;
     }
 
     .file-label {
@@ -106,6 +112,7 @@
     <label for="fileInput" class="file-label">📂 Choose File</label>
     <input type="file" id="fileInput" accept=".txt" style="display:none;">
   </div>
+  <div class="summary" id="summaryBanner">Loading summary...</div>
   <div id="dashboard"></div>
 
   <script>
@@ -155,12 +162,21 @@
 
     function renderDashboard(events) {
       const dashboard = document.getElementById("dashboard");
+      const summaryBanner = document.getElementById("summaryBanner");
       dashboard.innerHTML = "";
+
+      let totalToday = 0;
+      let completedToday = 0;
 
       events.forEach(event => {
         const eventId = `${todayKey}_${event.name}`;
         const isDone = tickState[eventId] === true;
         const isDueToday = isEventToday(event);
+
+        if (isDueToday) {
+          totalToday++;
+          if (isDone) completedToday++;
+        }
 
         const ledClass = (!isDone && isDueToday) ? "led blink" : "led";
         const tickClass = isDone ? "tick done" : "tick";
@@ -187,6 +203,8 @@
         div.appendChild(tick);
         dashboard.appendChild(div);
       });
+
+      summaryBanner.textContent = `🧾 ${totalToday} events today, ${completedToday} completed`;
     }
 
     function resetTicksAtMidnight() {
