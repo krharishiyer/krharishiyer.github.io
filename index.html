@@ -117,46 +117,34 @@
     const savedEvents = JSON.parse(localStorage.getItem("eventData") || "[]");
 
     function isEventToday(event) {
-  const nextDate = getNextOccurrence(event);
-  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const nextDateOnly = new Date(nextDate.getFullYear(), nextDate.getMonth(), nextDate.getDate());
-  return nextDateOnly.getTime() === todayDate.getTime();
-}
-
-    function getNextOccurrence(event) {
+  const startDate = new Date(event.startDate);
   const unit = event.unit;
   const interval = event.interval;
-  const startDate = new Date(event.startDate);
-  const base = new Date(today);
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   if (unit === "day") {
-  const msPerDay = 1000 * 60 * 60 * 24;
-  const diffDays = Math.floor((base - startDate) / msPerDay);
-  const nextOffset = Math.ceil(diffDays / interval) * interval;
-  const nextDate = new Date(startDate);
-  nextDate.setDate(startDate.getDate() + nextOffset);
-  return nextDate;
-}
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const diffDays = Math.floor((todayDate - startDate) / msPerDay);
+    return diffDays >= 0 && diffDays % interval === 0;
+  }
 
   if (unit === "month") {
-    const startDay = startDate.getDate();
-    const monthsSinceStart = (base.getFullYear() - startDate.getFullYear()) * 12 + (base.getMonth() - startDate.getMonth());
-    const offset = (interval - (monthsSinceStart % interval)) % interval;
-    const nextMonth = base.getMonth() + offset;
-    const nextDate = new Date(base.getFullYear(), nextMonth, startDay);
-    return nextDate < base ? new Date(base.getFullYear(), nextMonth + interval, startDay) : nextDate;
+    const monthsSinceStart = (todayDate.getFullYear() - startDate.getFullYear()) * 12 + (todayDate.getMonth() - startDate.getMonth());
+    return todayDate.getDate() === startDate.getDate() && monthsSinceStart >= 0 && monthsSinceStart % interval === 0;
   }
 
   if (unit === "year") {
-    const startDay = startDate.getDate();
-    const startMonth = startDate.getMonth();
-    const yearsSinceStart = base.getFullYear() - startDate.getFullYear();
-    const offset = (interval - (yearsSinceStart % interval)) % interval;
-    const nextYear = base.getFullYear() + offset;
-    const nextDate = new Date(nextYear, startMonth, startDay);
-    return nextDate < base ? new Date(nextYear + interval, startMonth, startDay) : nextDate;
+    const yearsSinceStart = todayDate.getFullYear() - startDate.getFullYear();
+    return todayDate.getDate() === startDate.getDate() &&
+           todayDate.getMonth() === startDate.getMonth() &&
+           yearsSinceStart >= 0 &&
+           yearsSinceStart % interval === 0;
   }
+
+  return false;
 }
+
+   
 
     function renderDashboard(events) {
   const dashboard = document.getElementById("dashboard");
