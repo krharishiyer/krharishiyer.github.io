@@ -130,12 +130,13 @@
   const base = new Date(today);
 
   if (unit === "day") {
-    const msPerDay = 1000 * 60 * 60 * 24;
-    const diffDays = Math.floor((base - startDate) / msPerDay);
-    const offset = (interval - (diffDays % interval)) % interval;
-    base.setDate(base.getDate() + offset);
-    return base;
-  }
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const diffDays = Math.floor((base - startDate) / msPerDay);
+  const nextOffset = Math.ceil(diffDays / interval) * interval;
+  const nextDate = new Date(startDate);
+  nextDate.setDate(startDate.getDate() + nextOffset);
+  return nextDate;
+}
 
   if (unit === "month") {
     const startDay = startDate.getDate();
