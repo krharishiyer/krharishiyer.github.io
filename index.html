@@ -55,7 +55,6 @@
     .event {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 6px;
       background-color: #111;
       border: 1px solid #333;
@@ -87,17 +86,6 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
-
-    .tick {
-      cursor: pointer;
-      font-size: 0.5em;
-      color: white;
-      transition: color 0.3s;
-    }
-
-    .tick.done {
-      color: limegreen;
-    }
   </style>
 </head>
 <body>
@@ -110,47 +98,34 @@
 
   <script>
     const today = new Date();
-    const todayKey = today.toISOString().split("T")[0];
     document.getElementById("today").textContent = today.toDateString();
 
-    const tickState = JSON.parse(localStorage.getItem("tickState") || "{}");
-    const savedEvents = JSON.parse(localStorage.getItem("eventData") || "[]");
-
     function isEventToday(event) {
-      const nextDate = getNextOccurrence(event);
-      return nextDate.toDateString() === today.toDateString();
-    }
-
-    function getNextOccurrence(event) {
+      const startDate = new Date(event.startDate);
       const unit = event.unit;
       const interval = event.interval;
-      const startDate = new Date(event.startDate);
-      const base = new Date(today);
+      const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
       if (unit === "day") {
         const msPerDay = 1000 * 60 * 60 * 24;
-        const diffDays = Math.floor((base - startDate) / msPerDay);
-        const offset = (interval - (diffDays % interval)) % interval;
-        base.setDate(base.getDate() + offset);
-        return base;
+        const diffDays = Math.floor((todayDate - startDate) / msPerDay);
+        return diffDays >= 0 && diffDays % interval === 0;
       }
 
       if (unit === "month") {
-        const startDay = startDate.getDate();
-        const monthsSinceStart = (base.getFullYear() - startDate.getFullYear()) * 12 + (base.getMonth() - startDate.getMonth());
-        const offset = (interval - (monthsSinceStart % interval)) % interval;
-        const nextMonth = base.getMonth() + offset;
-        return new Date(base.getFullYear(), nextMonth, startDay);
+        const monthsSinceStart = (todayDate.getFullYear() - startDate.getFullYear()) * 12 + (todayDate.getMonth() - startDate.getMonth());
+        return todayDate.getDate() === startDate.getDate() && monthsSinceStart >= 0 && monthsSinceStart % interval === 0;
       }
 
       if (unit === "year") {
-        const startDay = startDate.getDate();
-        const startMonth = startDate.getMonth();
-        const yearsSinceStart = base.getFullYear() - startDate.getFullYear();
-        const offset = (interval - (yearsSinceStart % interval)) % interval;
-        const nextYear = base.getFullYear() + offset;
-        return new Date(nextYear, startMonth, startDay);
+        const yearsSinceStart = todayDate.getFullYear() - startDate.getFullYear();
+        return todayDate.getDate() === startDate.getDate() &&
+               todayDate.getMonth() === startDate.getMonth() &&
+               yearsSinceStart >= 0 &&
+               yearsSinceStart % interval === 0;
       }
+
+      return false;
     }
 
     function renderDashboard(events) {
@@ -158,12 +133,8 @@
       dashboard.innerHTML = "";
 
       events.forEach(event => {
-        const eventId = `${todayKey}_${event.name}`;
-        const isDone = tickState[eventId] === true;
         const isDueToday = isEventToday(event);
-
-        const ledClass = (!isDone && isDueToday) ? "led blink" : "led";
-        const tickClass = isDone ? "tick done" : "tick";
+        const ledClass = isDueToday ? "led blink" : "led";
 
         const div = document.createElement("div");
         div.className = "event";
@@ -172,35 +143,9 @@
         label.className = "label";
         label.innerHTML = `<div class="${ledClass}"></div>${event.name}`;
 
-        const tick = document.createElement("div");
-        tick.className = tickClass;
-        tick.innerHTML = "✔";
-        tick.title = "Mark as done";
-
-        tick.addEventListener("click", () => {
-          tickState[eventId] = !tickState[eventId];
-          localStorage.setItem("tickState", JSON.stringify(tickState));
-          renderDashboard(events);
-        });
-
         div.appendChild(label);
-        div.appendChild(tick);
         dashboard.appendChild(div);
       });
-    }
-
-    function resetTicksAtMidnight() {
-      const now = new Date();
-      const millisUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
-      setTimeout(() => {
-        localStorage.setItem("tickState", JSON.stringify({}));
-        location.reload();
-      }, millisUntilMidnight + 1000);
-    }
-
-    if (savedEvents.length > 0) {
-      renderDashboard(savedEvents);
-      resetTicksAtMidnight();
     }
 
     document.getElementById("fileInput").addEventListener("change", function () {
@@ -214,9 +159,7 @@
           const [name, unit, interval, startDate] = line.split(",");
           return { name, unit, interval: parseInt(interval), startDate };
         });
-        localStorage.setItem("eventData", JSON.stringify(events));
         renderDashboard(events);
-        resetTicksAtMidnight();
       };
       reader.readAsText(file);
     });
