@@ -57,7 +57,6 @@
       50% { opacity: 0; }
     }
     .meta { color: #ddd; font-size: 0.86rem; margin-left: auto; text-align: right; }
-    .meta .small { color:#bbb; font-size:0.78rem; display:block; }
     .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px; }
 
     /* ↓↓↓ Shrink everything in horizontal (landscape) view ↓↓↓ */
@@ -68,7 +67,6 @@
       .left { gap: 5px; min-width: 80px; }
       .led { width: 7px; height: 7px; }
       .meta { font-size: 0.43rem; }
-      .meta .small { font-size: 0.39rem; }
       .name { max-width: 110px; }
     }
   </style>
@@ -86,8 +84,7 @@
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     document.getElementById('today').textContent = today.toDateString();
 
-    // ---------- EVENTS (only those you supplied) ----------
-    // For "Milk Basket" start = 'tomorrow' will be interpreted dynamically
+    // ---------- EVENTS ----------
     const events = [
       {name:"Milk Basket", rule:"alternate_day", start:"tomorrow"},
       {name:"Shaving Blade", rule:"month_days", days:[1,15]},
@@ -166,41 +163,34 @@
     }
 
     function getNthSunday(year, month, n){
-      // month: 0-based
       let d = new Date(year, month, 1);
-      // find first Sunday
       while(d.getDay() !== 0) d.setDate(d.getDate()+1);
       d.setDate(d.getDate() + (n-1)*7);
-      // if nth Sunday overflows into next month, return null
       if(d.getMonth() !== month) return null;
       return normalizeToMidnight(d);
     }
     function getLastSunday(year, month){
-      let d = new Date(year, month+1, 0); // last day of month
+      let d = new Date(year, month+1, 0);
       while(d.getDay() !== 0) d.setDate(d.getDate()-1);
       return normalizeToMidnight(d);
     }
 
-    // ---------- RULE CHECK: is event ON a particular date ----------
+    // ---------- RULE CHECK ----------
     function isEventOnDate(event, date){
       date = normalizeToMidnight(date);
-      // handle special "tomorrow" start for Milk Basket
       let start;
       if(event.start === 'tomorrow'){
         start = addDays(today, 1);
       } else if(event.start){
         start = normalizeToMidnight(new Date(event.start));
       }
-
       switch(event.rule){
         case 'alternate_day': {
           if(!start) return false;
           const diff = Math.floor((date - start) / (1000*60*60*24));
           return diff >= 0 && diff % 2 === 0;
         }
-        case 'month_days': {
-          return event.days.includes(date.getDate());
-        }
+        case 'month_days': return event.days.includes(date.getDate());
         case 'every_x_months': {
           if(!start) return false;
           if(date.getDate() !== start.getDate()) return false;
@@ -225,8 +215,7 @@
       }
     }
 
-    // ---------- NEXT OCCURRENCE FINDER ----------
-    // search up to N days ahead (default 2 years)
+    // ---------- NEXT OCCURRENCE ----------
     function nextOccurrence(event, fromDate = today, maxDays = 730){
       let cursor = normalizeToMidnight(new Date(fromDate));
       for(let i=0;i<=maxDays;i++){
@@ -238,11 +227,10 @@
 
     // ---------- STATUS & rendering ----------
     function getStatusAndNext(event){
-      // today?
       if(isEventOnDate(event, today)){
         return { status: 'today', next: today };
       }
-      const next = nextOccurrence(event, addDays(today, 1)); // next from tomorrow onward
+      const next = nextOccurrence(event, addDays(today, 1));
       if(!next) return { status: 'none', next: null };
       const diffDays = Math.round((next - today) / (1000*60*60*24));
       if(diffDays <= 7) return { status: 'upcoming', next };
@@ -257,13 +245,11 @@
         const div = document.createElement('div');
         div.className = 'event';
 
-        // led class
         const led = document.createElement('div');
         if(info.status === 'today') led.className = 'led today';
         else if(info.status === 'upcoming') led.className = 'led upcoming';
         else led.className = 'led none';
 
-        // left: led + name
         const left = document.createElement('div');
         left.className = 'left';
         const nameSpan = document.createElement('div');
@@ -272,15 +258,14 @@
         left.appendChild(led);
         left.appendChild(nameSpan);
 
-        // meta: next / today label
         const meta = document.createElement('div');
         meta.className = 'meta';
         if(info.status === 'today'){
-          meta.innerHTML = '<span class="small">Due</span><strong>Today</strong>';
+          meta.innerHTML = '<strong>Today</strong>';
         } else if(info.next){
-          meta.innerHTML = '<span class="small">Next</span><strong>' + formatDate(info.next) + '</strong>';
+          meta.innerHTML = '<strong>' + formatDate(info.next) + '</strong>';
         } else {
-          meta.innerHTML = '<span class="small">Next</span><strong>—</strong>';
+          meta.innerHTML = '<strong>—</strong>';
         }
 
         div.appendChild(left);
