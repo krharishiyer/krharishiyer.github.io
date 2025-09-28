@@ -17,11 +17,11 @@
     .header { margin-bottom: 12px; }
     h1 { font-size: 1.05rem; margin: 0; }
     #dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 10px;
-      align-content: start;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 6px 6px; /* smaller row and column gaps */
+  align-content: start;
+}
     .event {
       background: #111;
       border: 1px solid #222;
@@ -59,16 +59,20 @@
     .meta { color: #ddd; font-size: 0.86rem; margin-left: auto; text-align: right; }
     .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px; }
 
-    /* ↓↓↓ Shrink everything in horizontal (landscape) view ↓↓↓ */
-    @media screen and (orientation: landscape) {
-      body { font-size: 50%; }
-      h1 { font-size: 0.53rem; }
-      .event { font-size: 0.48rem; padding: 5px; gap: 5px; }
-      .left { gap: 5px; min-width: 80px; }
-      .led { width: 7px; height: 7px; }
-      .meta { font-size: 0.43rem; }
-      .name { max-width: 110px; }
-    }
+   /* ↓↓↓ Shrink everything in horizontal (landscape) view ↓↓↓ */
+@media screen and (orientation: landscape) {
+  body { font-size: 50%; }
+  h1 { font-size: 0.53rem; }
+  #dashboard {
+    grid-template-columns: repeat(4, 1fr); /* force 4 columns */
+    gap: 4px 4px; /* reduce vertical and horizontal gaps */
+  }
+  .event { font-size: 0.48rem; padding: 4px; gap: 4px; border-radius: 4px; }
+  .left { gap: 4px; min-width: 70px; }
+  .led { width: 6px; height: 6px; }
+  .meta { font-size: 0.42rem; }
+  .name { max-width: 100px; }
+}
   </style>
 </head>
 <body>
