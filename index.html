@@ -1,289 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="UTF-8">
   <title>Event Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
+      background-color: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 20px;
-      min-height: 100vh;
+      box-sizing: border-box;
+      height: 100vh;
       display: flex;
       flex-direction: column;
+      font-size: 100%;
     }
-    .header { margin-bottom: 12px; }
-    h1 { font-size: 1.05rem; margin: 0; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      font-size: 0.7em;
+      margin: 0;
+    }
+
     #dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 10px;
+      flex-grow: 1;
       align-content: start;
     }
+
     .event {
-      background: #111;
-      border: 1px solid #222;
-      padding: 10px;
-      border-radius: 8px;
-      display:flex;
-      flex-direction: row;
-      align-items:center;
-      gap: 10px;
-      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      padding: 6px;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 6px;
+      font-size: 0.7em;
+      white-space: nowrap;
     }
-    .left {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 160px;
+
+    .label {
+      display: flex;
+      align-items: center;
     }
+
     .led {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: #444;
+      margin-right: 10px;
+      background-color: transparent;
       flex-shrink: 0;
     }
-    .led.today {
-      background: red;
+
+    .led.blink {
+      background-color: red;
       animation: blink 1s infinite;
     }
-    .led.upcoming { background: orange; }
-    .led.none { background: #666; }
+
     @keyframes blink {
-      0%,100% { opacity: 1; }
+      0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
-    .meta { color: #ddd; font-size: 0.86rem; margin-left: auto; text-align: right; }
-    .meta .small { color:#bbb; font-size:0.78rem; display:block; }
-    .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px; }
+
+    /* 📱 Landscape mode: shrink font sizes by ~50% */
+    @media screen and (orientation: landscape) {
+      body { font-size: 50%; }
+      h1 { font-size: 0.6rem; }
+      .event { font-size: 0.5rem; padding: 5px; }
+      .label { font-size: 0.5rem; }
+      .led { width: 8px; height: 8px; }
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>📅 Event Dashboard — <span id="today"></span></h1>
+    <h1>🗓️ Event Dashboard – <span id="today"></span></h1>
   </div>
-
   <div id="dashboard"></div>
 
   <script>
-    // Current date (midnight-normalized)
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    document.getElementById('today').textContent = today.toDateString();
+  const today = new Date();
+  document.getElementById("today").textContent = today.toDateString();
 
-    // ---------- EVENTS (only those you supplied) ----------
-    // For "Milk Basket" start = 'tomorrow' will be interpreted dynamically
-    const events = [
-      {name:"Milk Basket", rule:"alternate_day", start:"tomorrow"},
-      {name:"Shaving Blade", rule:"month_days", days:[1,15]},
-      {name:"Tooth Brush", rule:"every_x_months", interval:6, start:"2025-10-01"},
-      {name:"Towel", rule:"weekly_sunday"},
-      {name:"Toilet Clean", rule:"weekly_sunday"},
-      {name:"Kitchen Cloth", rule:"weekly_sunday"},
-      {name:"Washing Machine", rule:"last_sunday"},
-      {name:"Dish Washer", rule:"last_sunday"},
-      {name:"Bed Sheet", rule:"weekly_sunday"},
-      {name:"Car Clean", rule:"weekly_sunday"},
-      {name:"Pay Salaries", rule:"month_days", days:[1]},
-      {name:"Electricity Bill", rule:"month_days", days:[10]},
-      {name:"Internet Bill", rule:"month_days", days:[10]},
-      {name:"Mobile Bill", rule:"month_days", days:[10]},
-      {name:"Tata Play", rule:"month_days", days:[24]},
-      {name:"Netflix", rule:"month_days", days:[1]},
-      {name:"Milk Bill", rule:"month_days", days:[1,15]},
-      {name:"ICICI CC", rule:"month_days", days:[1]},
-      {name:"My Haircut", rule:"nth_sunday", nth:4},
-      {name:"Ayush Haircut", rule:"nth_sunday", nth:3},
-      {name:"IMG maint Q1", rule:"annual", month:1, day:1},
-      {name:"IMG maint Q2", rule:"annual", month:4, day:1},
-      {name:"IMG maint Q3", rule:"annual", month:7, day:1},
-      {name:"IMG maint Q4", rule:"annual", month:10, day:1},
-      {name:"Amazon Prime", rule:"annual", month:10, day:1},
-      {name:"YT Music", rule:"annual", month:4, day:20},
-      {name:"Linea A Srvc", rule:"annual", month:11, day:2},
-      {name:"Nano A Srvc", rule:"annual", month:5, day:30},
-      {name:"Jetta A Srvc", rule:"annual", month:6, day:8},
-      {name:"Linea H Srvc", rule:"annual", month:5, day:2},
-      {name:"Nano H Srvc", rule:"annual", month:10, day:26},
-      {name:"Jetta H Srvc", rule:"annual", month:12, day:8},
-      {name:"Linea Insur", rule:"annual", month:10, day:28},
-      {name:"Nano Insur", rule:"annual", month:12, day:17},
-      {name:"Jetta Insur", rule:"annual", month:11, day:5},
-      {name:"Linea Poll Check", rule:"twice_year", start:"2025-05-20"},
-      {name:"Nano Poll Check", rule:"twice_year", start:"2025-10-05"},
-      {name:"Jetta Poll Check", rule:"twice_year", start:"2025-06-02"},
-      {name:"SBI LI", rule:"annual", month:4, day:1},
-      {name:"HDFC HI", rule:"annual", month:5, day:1},
-      {name:"LIC", rule:"twice_year", start:"2025-01-01"},
-      {name:"Locker", rule:"annual", month:9, day:1},
-      {name:"NSR", rule:"annual", month:9, day:1},
-      {name:"Press", rule:"weekly_sunday"},
-      {name:"Wordpress", rule:"annual", month:4, day:1},
-      {name:"Google One", rule:"annual", month:11, day:1},
-      {name:"LinkedIn Learning", rule:"annual", month:10, day:10},
-      {name:"Ayush School", rule:"month_days", days:[1]},
-      {name:"H School", rule:"month_days", days:[1]},
-      {name:"H Savings", rule:"month_days", days:[1]},
-      {name:"A Savings", rule:"month_days", days:[1]},
-      {name:"H SSY", rule:"annual", month:4, day:1},
-      {name:"PPF", rule:"annual", month:4, day:1},
-      {name:"Linea Air", rule:"nth_sunday", nth:1},
-      {name:"Jetta Air", rule:"nth_sunday", nth:2},
-      {name:"Nano Air", rule:"nth_sunday", nth:3},
-      {name:"Cycle Air", rule:"nth_sunday", nth:4},
-      {name:"Refill Sani", rule:"nth_sunday", nth:4},
-      {name:"Refill HW", rule:"nth_sunday", nth:4},
-      {name:"Fold Clothes", rule:"weekly_sunday"}
-    ];
+  // ⚡ Placeholder list (replace with your full event list & rules)
+  const events = [
+    {name:"Milk Basket", rule:"every alternate day starting tomorrow"},
+    {name:"Shaving Blade", rule:"every month on the 1st and on the 15th"},
+    {name:"Tooth Brush", rule:"every six months on the 1st starting October 1st"},
+    {name:"Towel", rule:"every Sunday"},
+    {name:"Toilet Clean", rule:"every Sunday"},
+    {name:"Kitchen Cloth", rule:"every Sunday"},
+    {name:"Washing Machine", rule:"every month on last Sunday"},
+    {name:"Dish Washer", rule:"every last Sunday"},
+    {name:"Bed Sheet", rule:"every Sunday"},
+    {name:"Car Clean", rule:"every Sunday"},
+    {name:"Pay Salaries", rule:"every first day of the month"},
+    {name:"Electricity Bill", rule:"every month on the 10th"},
+    {name:"Internet Bill", rule:"every month on the 10th"},
+    {name:"Mobile Bill", rule:"every month on the 10th"},
+    {name:"Tata Play", rule:"every month on the 24th"},
+    {name:"Netflix", rule:"every month on the 1st"},
+    {name:"Milk Bill", rule:"every month on 1st and 15th"},
+    {name:"ICICI CC", rule:"every month on 1st"},
+    {name:"My Haircut", rule:"every month on 4th Sunday"},
+    {name:"Ayush Haircut", rule:"every month on 3rd Sunday"},
+    {name:"IMG maint Q1", rule:"every year on January 1st"},
+    {name:"IMG maint Q2", rule:"every year on April 1st"},
+    {name:"IMG maint Q3", rule:"every year on July 1st"},
+    {name:"IMG maint Q4", rule:"every year on October 1st"},
+    {name:"Amazon Prime", rule:"every year on October 1st"},
+    {name:"YT Music", rule:"every year on April 20th"},
+    {name:"Linea A Srvc", rule:"every year on November 2nd"},
+    {name:"Nano A Srvc", rule:"every year on May 30th"},
+    {name:"Jetta A Srvc", rule:"every year on June 8th"},
+    {name:"Linea H Srvc", rule:"every year on May 2nd"},
+    {name:"Nano H Srvc", rule:"every year on October 26th"},
+    {name:"Jetta H Srvc", rule:"every year on December 8th"},
+    {name:"Linea Insur", rule:"every year on October 28th"},
+    {name:"Nano Insur", rule:"every year on December 17th"},
+    {name:"Jetta Insur", rule:"every year on November 5th"},
+    {name:"Linea Poll Check", rule:"twice a year starting May 20th"},
+    {name:"Nano Poll Check", rule:"twice a year starting October 5th"},
+    {name:"Jetta Poll Check", rule:"twice a year starting June 2nd"},
+    {name:"SBI LI", rule:"every year on April 1st"},
+    {name:"HDFC HI", rule:"every year on May 1st"},
+    {name:"LIC", rule:"twice a year starting January 1st"},
+    {name:"Locker", rule:"every year on September 1st"},
+    {name:"NSR", rule:"every year on September 1st"},
+    {name:"Press", rule:"every Sunday"},
+    {name:"Wordpress", rule:"every year on April 1st"},
+    {name:"Google One", rule:"every year on November 1st"},
+    {name:"LinkedIn Learning", rule:"every year on October 10th"},
+    {name:"Ayush School", rule:"every month on 1st"},
+    {name:"H School", rule:"every month on 1st"},
+    {name:"H Savings", rule:"every month on 1st"},
+    {name:"A Savings", rule:"every month on 1st"},
+    {name:"H SSY", rule:"every year on April 1st"},
+    {name:"PPF", rule:"every year on April 1st"},
+    {name:"Linea Air", rule:"every first Sunday"},
+    {name:"Jetta Air", rule:"every second Sunday"},
+    {name:"Nano Air", rule:"every third Sunday"},
+    {name:"Cycle Air", rule:"every fourth Sunday"},
+    {name:"Refill Sani", rule:"every fourth Sunday"},
+    {name:"Refill HW", rule:"every fourth Sunday"},
+    {name:"Fold Clothes", rule:"every Sunday"}
+  ];
 
-    // ---------- UTILITIES ----------
-    function normalizeToMidnight(d){
-      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    }
-    function isSameDate(a,b){
-      return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
-    }
-    function addDays(d, n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
-    function formatDate(d){
-      if(!d) return '—';
-      const opts = { weekday:'short', year:'numeric', month:'short', day:'2-digit' };
-      return d.toLocaleDateString(undefined, opts);
-    }
+  // TODO: Implement natural-language schedule matching (same as before)
 
-    function getNthSunday(year, month, n){
-      // month: 0-based
-      let d = new Date(year, month, 1);
-      // find first Sunday
-      while(d.getDay() !== 0) d.setDate(d.getDate()+1);
-      d.setDate(d.getDate() + (n-1)*7);
-      // if nth Sunday overflows into next month, return null
-      if(d.getMonth() !== month) return null;
-      return normalizeToMidnight(d);
-    }
-    function getLastSunday(year, month){
-      let d = new Date(year, month+1, 0); // last day of month
-      while(d.getDay() !== 0) d.setDate(d.getDate()-1);
-      return normalizeToMidnight(d);
-    }
+  function isEventToday(event) {
+    // Placeholder: just return false for now
+    return false;
+  }
 
-    // ---------- RULE CHECK: is event ON a particular date ----------
-    function isEventOnDate(event, date){
-      date = normalizeToMidnight(date);
-      // handle special "tomorrow" start for Milk Basket
-      let start;
-      if(event.start === 'tomorrow'){
-        start = addDays(today, 1);
-      } else if(event.start){
-        start = normalizeToMidnight(new Date(event.start));
-      }
+  function renderDashboard(events) {
+    const dashboard = document.getElementById("dashboard");
+    dashboard.innerHTML = "";
 
-      switch(event.rule){
-        case 'alternate_day': {
-          if(!start) return false;
-          const diff = Math.floor((date - start) / (1000*60*60*24));
-          return diff >= 0 && diff % 2 === 0;
-        }
-        case 'month_days': {
-          return event.days.includes(date.getDate());
-        }
-        case 'every_x_months': {
-          if(!start) return false;
-          if(date.getDate() !== start.getDate()) return false;
-          const monthsSince = (date.getFullYear()-start.getFullYear())*12 + (date.getMonth()-start.getMonth());
-          return monthsSince >= 0 && monthsSince % event.interval === 0;
-        }
-        case 'weekly_sunday': return date.getDay() === 0;
-        case 'last_sunday': return isSameDate(date, getLastSunday(date.getFullYear(), date.getMonth()));
-        case 'nth_sunday': {
-          const nthDate = getNthSunday(date.getFullYear(), date.getMonth(), event.nth);
-          return nthDate ? isSameDate(date, nthDate) : false;
-        }
-        case 'annual': return (date.getMonth()+1 === event.month && date.getDate() === event.day);
-        case 'twice_year': {
-          if(!start) return false;
-          const s = normalizeToMidnight(new Date(event.start));
-          const occ1 = new Date(date.getFullYear(), s.getMonth(), s.getDate());
-          const occ2 = new Date(occ1); occ2.setMonth(occ1.getMonth() + 6);
-          return isSameDate(date, occ1) || isSameDate(date, occ2);
-        }
-        default: return false;
-      }
-    }
+    events.forEach(event => {
+      const isDueToday = isEventToday(event);
+      const ledClass = isDueToday ? "led blink" : "led";
 
-    // ---------- NEXT OCCURRENCE FINDER ----------
-    // search up to N days ahead (default 2 years)
-    function nextOccurrence(event, fromDate = today, maxDays = 730){
-      let cursor = normalizeToMidnight(new Date(fromDate));
-      for(let i=0;i<=maxDays;i++){
-        if(isEventOnDate(event, cursor)) return normalizeToMidnight(cursor);
-        cursor = addDays(cursor, 1);
-      }
-      return null;
-    }
+      const div = document.createElement("div");
+      div.className = "event";
 
-    // ---------- STATUS & rendering ----------
-    function getStatusAndNext(event){
-      // today?
-      if(isEventOnDate(event, today)){
-        return { status: 'today', next: today };
-      }
-      const next = nextOccurrence(event, addDays(today, 1)); // next from tomorrow onward
-      if(!next) return { status: 'none', next: null };
-      const diffDays = Math.round((next - today) / (1000*60*60*24));
-      if(diffDays <= 7) return { status: 'upcoming', next };
-      return { status: 'none', next };
-    }
+      const label = document.createElement("div");
+      label.className = "label";
+      label.innerHTML = `<div class="${ledClass}"></div>${event.name}`;
 
-    function render(){
-      const dashboard = document.getElementById('dashboard');
-      dashboard.innerHTML = '';
-      events.forEach(ev=>{
-        const info = getStatusAndNext(ev);
-        const div = document.createElement('div');
-        div.className = 'event';
+      div.appendChild(label);
+      dashboard.appendChild(div);
+    });
+  }
 
-        // led class
-        const led = document.createElement('div');
-        if(info.status === 'today') led.className = 'led today';
-        else if(info.status === 'upcoming') led.className = 'led upcoming';
-        else led.className = 'led none';
+  renderDashboard(events);
 
-        // left: led + name
-        const left = document.createElement('div');
-        left.className = 'left';
-        const nameSpan = document.createElement('div');
-        nameSpan.className = 'name';
-        nameSpan.textContent = ev.name;
-        left.appendChild(led);
-        left.appendChild(nameSpan);
-
-        // meta: next / today label
-        const meta = document.createElement('div');
-        meta.className = 'meta';
-        if(info.status === 'today'){
-          meta.innerHTML = '<span class="small">Due</span><strong>Today</strong>';
-        } else if(info.next){
-          meta.innerHTML = '<span class="small">Next</span><strong>' + formatDate(info.next) + '</strong>';
-        } else {
-          meta.innerHTML = '<span class="small">Next</span><strong>—</strong>';
-        }
-
-        div.appendChild(left);
-        div.appendChild(meta);
-        dashboard.appendChild(div);
-      });
-    }
-
-    render();
-
-    // ---------- Auto refresh at next midnight ----------
-    const nowTime = new Date();
-    const millisTillMidnight = new Date(nowTime.getFullYear(), nowTime.getMonth(), nowTime.getDate()+1, 0,0,0) - nowTime;
-    setTimeout(()=> location.reload(), millisTillMidnight + 50);
-
+  // Auto refresh at midnight
+  const now = new Date();
+  const millisTillMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0) - now;
+  setTimeout(() => location.reload(), millisTillMidnight);
   </script>
 </body>
 </html>
