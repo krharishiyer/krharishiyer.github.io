@@ -17,11 +17,11 @@
     .header { margin-bottom: 12px; }
     h1 { font-size: 1.05rem; margin: 0; }
     #dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 6px 6px; /* smaller row and column gaps */
-  align-content: start;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 6px 6px;
+      align-content: start;
+    }
     .event {
       background: #111;
       border: 1px solid #222;
@@ -65,7 +65,7 @@
   h1 { font-size: 0.53rem; }
   #dashboard {
     grid-template-columns: repeat(4, 1fr); /* force 4 columns */
-    gap: 16px 16px; /* reduce vertical and horizontal gaps */
+    gap: 16px 16px;
   }
   .event { font-size: 0.48rem; padding: 4px; gap: 4px; border-radius: 4px; }
   .left { gap: 4px; min-width: 70px; }
@@ -83,7 +83,6 @@
   <div id="dashboard"></div>
 
   <script>
-    // Current date (midnight-normalized)
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     document.getElementById('today').textContent = today.toDateString();
@@ -149,27 +148,23 @@
       {name:"Cycle Air", rule:"nth_sunday", nth:4},
       {name:"Refill Sani", rule:"nth_sunday", nth:4},
       {name:"Refill HW", rule:"nth_sunday", nth:4},
-      {name:"Fold Clothes", rule:"weekly_sunday"}
-//	{name:"Thyronorm", rule:"daily"},
-//	{name:"Deksel", rule:"daily"},
-//	{name:"Orofer", rule:"daily"}
-	
+      {name:"Fold Clothes", rule:"weekly_sunday"},
+
+      // ---- New Daily Events ----
+      {name:"Thyronorm", rule:"daily"},
+      {name:"Deksel", rule:"daily"},
+      {name:"Orofer", rule:"daily"}
     ];
 
     // ---------- UTILITIES ----------
-    function normalizeToMidnight(d){
-      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    }
-    function isSameDate(a,b){
-      return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
-    }
+    function normalizeToMidnight(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+    function isSameDate(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
     function addDays(d, n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
     function formatDate(d){
       if(!d) return '—';
       const opts = { weekday:'short', year:'numeric', month:'short', day:'2-digit' };
       return d.toLocaleDateString(undefined, opts);
     }
-
     function getNthSunday(year, month, n){
       let d = new Date(year, month, 1);
       while(d.getDay() !== 0) d.setDate(d.getDate()+1);
@@ -187,12 +182,11 @@
     function isEventOnDate(event, date){
       date = normalizeToMidnight(date);
       let start;
-      if(event.start === 'tomorrow'){
-        start = addDays(today, 1);
-      } else if(event.start){
-        start = normalizeToMidnight(new Date(event.start));
-      }
+      if(event.start === 'tomorrow'){ start = addDays(today, 1); }
+      else if(event.start){ start = normalizeToMidnight(new Date(event.start)); }
+
       switch(event.rule){
+        case 'daily': return true;
         case 'alternate_day': {
           if(!start) return false;
           const diff = Math.floor((date - start) / (1000*60*60*24));
@@ -235,9 +229,7 @@
 
     // ---------- STATUS & rendering ----------
     function getStatusAndNext(event){
-      if(isEventOnDate(event, today)){
-        return { status: 'today', next: today };
-      }
+      if(isEventOnDate(event, today)){ return { status: 'today', next: today }; }
       const next = nextOccurrence(event, addDays(today, 1));
       if(!next) return { status: 'none', next: null };
       const diffDays = Math.round((next - today) / (1000*60*60*24));
@@ -288,7 +280,6 @@
     const nowTime = new Date();
     const millisTillMidnight = new Date(nowTime.getFullYear(), nowTime.getMonth(), nowTime.getDate()+1, 0,0,0) - nowTime;
     setTimeout(()=> location.reload(), millisTillMidnight + 50);
-
   </script>
 </body>
 </html>
