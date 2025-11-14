@@ -88,6 +88,19 @@
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     document.getElementById('today').textContent = today.toDateString();
 
+ // --- Added: Day → God Map ---
+  const godMap = {
+    1: "Shiva",     // Monday
+    2: "Hanuman",   // Tuesday
+    3: "Ganesha",   // Wednesday
+    4: "Vishnu",    // Thursday
+    5: "Durga",     // Friday
+    6: "Shani",     // Saturday
+    0: "Surya"      // Sunday
+  };
+
+  const godForToday = godMap[today.getDay()];
+
     // ---------- EVENTS ----------
     const events = [
       {name:"Milk Basket", rule:"alternate_day", start:"2025-09-29"},
@@ -264,6 +277,34 @@
     function render(){
       const dashboard = document.getElementById('dashboard');
       dashboard.innerHTML = '';
+
+// --- Added: Daily God Tile ---
+    const godTile = document.createElement('div');
+    godTile.className = 'event';
+
+    const leftGod = document.createElement('div');
+    leftGod.className = 'left';
+
+    const godLed = document.createElement('div');
+    godLed.className = 'led today';  // blinking red LED for emphasis
+
+    const godName = document.createElement('div');
+    godName.className = 'name';
+    godName.textContent = godForToday;
+
+    leftGod.appendChild(godLed);
+    leftGod.appendChild(godName);
+
+    const godMeta = document.createElement('div');
+    godMeta.className = 'meta';
+    godMeta.innerHTML = "<strong>Today</strong>";
+
+    godTile.appendChild(leftGod);
+    godTile.appendChild(godMeta);
+
+    dashboard.appendChild(godTile);
+    // --- End god tile ---
+
       events.forEach(ev=>{
         const info = getStatusAndNext(ev);
         const div = document.createElement('div');
